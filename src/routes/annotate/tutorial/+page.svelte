@@ -1,18 +1,13 @@
 <script>
-	import { goto } from '$app/navigation';
-    import { onMount } from 'svelte';
-
-    function goToLogin() {
-        goto("/annotate/login");
-    }
-
-    onMount(goToLogin);
+	import Tutorial from "./Tutorial.svelte";
 </script>
 
 <svelte:head>
 	<title>Regex from Examples</title>
 	<meta name="description" content="Regular expressions from examples" />
 </svelte:head>
+
+<Tutorial />
 
 <style>
 </style>

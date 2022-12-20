@@ -1,12 +1,6 @@
 <script>
-	import { goto } from '$app/navigation';
-    import { onMount } from 'svelte';
+import Verify from "./Verify.svelte";
 
-    function goToLogin() {
-        goto("/annotate/login");
-    }
-
-    onMount(goToLogin);
 </script>
 
 <svelte:head>
@@ -14,5 +8,6 @@
 	<meta name="description" content="Regular expressions from examples" />
 </svelte:head>
 
+<Verify />
 <style>
 </style>
