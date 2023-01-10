@@ -94,7 +94,7 @@
         <div class="btn-group-vertical col-lg-10 py-md-3">
             {#each question.options as opt}
                 <input type="radio" class="btn-check" name="utterance-type-{i}" value={opt.id} id="{i}-{opt.id}" autocomplete="off" bind:group={answers[question.id]}>
-                {#if opt.correct}
+                {#if opt.sat}
                     <label class="btn btn-outline-success" for="{i}-{opt.id}"><tt>{opt.regex}</tt></label>
                 {:else}
                     <label class="btn btn-outline-dark" for="{i}-{opt.id}"><tt>{opt.regex}</tt></label>
