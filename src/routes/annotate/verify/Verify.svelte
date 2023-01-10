@@ -18,7 +18,7 @@
         .then(response => response.json())
         .then(data => {
             let data_copy = [...data];
-            data_copy.sort((x, y) => (x.n_verifications > y.verifications) ? 1 : ((x.id < y.id) ? 0 : 1));
+            data_copy.sort((x, y) => (x.n_verifications > y.verifications) ? 1 : ((x.id < y.id) ? 0 : (Math.random() > 0.5 ? 1 : 0))));
             let qs = [];
             for (let i = 0; i < N_QUESTIONS; i += 1) {
                 qs = [...qs, data_copy[i]];

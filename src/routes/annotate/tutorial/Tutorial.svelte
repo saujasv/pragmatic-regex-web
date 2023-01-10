@@ -44,6 +44,8 @@
         .then(data => {
             let n = data.length;
             regex = data[Math.floor(Math.random() * (n - 1))];
+            current_utterance_string = "";
+            current_utterance_label = 0;
         }).catch(error => {
             console.log(error);
             return [];

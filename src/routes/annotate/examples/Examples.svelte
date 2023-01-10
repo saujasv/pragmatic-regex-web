@@ -5,6 +5,8 @@
 
     let num_completed = 0;
 
+    let events_log = [];
+
     let MAX_N = 2;
 
     let regex = "";
@@ -17,6 +19,7 @@
     let id = 0;
 
     function addUtterance() {
+        events_log = [...events_log, {"string": current_utterance_string, "label": current_utterance_label, "id": id}]
         if (current_utterance_string.length > 0) {
             if (current_utterance_label == "+" && current_utterance_string.match(`^${regex}$`)) {
                 utterances = [...utterances, {"string": current_utterance_string, "label": current_utterance_label, "id": id}];
@@ -30,8 +33,13 @@
                 current_utterance_label = null;
                 id += 1;
             }
+            else {
+                // TOAST
+            }
         }
-        
+        else {
+            // TOAST
+        }
     }
 
     function removeUtterance(id) {
@@ -46,11 +54,6 @@
             })
         })
         utterances = [];
-        num_completed += 1;
-
-        if (num_completed >= MAX_N) {
-            goto("/annotate/nl");
-        }
 
         await loadRegex().then(response => {});
     }
@@ -59,6 +62,19 @@
         if ($user.length == 0) {
             goto("/annotate/login")
         }
+
+        await fetch(`https://try-regex-default-rtdb.firebaseio.com/collect/${$user}.json`)
+        .then(response => response.json())
+        .then(data => {
+            num_completed = data.length;
+            if (num_completed > MAX_N) {
+                goto("/annotate/nl");
+            }
+
+        }).catch(error => {
+            console.log(error);
+            return [];
+        });
 
         await fetch("https://try-regex-default-rtdb.firebaseio.com/programs.json")
         .then(response => response.json())
