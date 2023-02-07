@@ -2,12 +2,13 @@
 	import { user } from '$lib/store.js';
 	import { goto } from '$app/navigation';
 	import { SvelteToast, toast } from '@zerodevx/svelte-toast';
+	import { base } from '$app/paths';
 
 	let username = "";
 	function submitUsername() {
 		if (username.length > 0) {
 			user.set(username);
-			goto("/pragmatic-regex-web/annotate/tutorial");
+			goto(`${base}/annotate/tutorial`);
 		}
 		else {
 			toast.push("Please enter a valid username", { 

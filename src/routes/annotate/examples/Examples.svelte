@@ -2,6 +2,7 @@
     import { goto } from '$app/navigation';
     import { user } from '$lib/store.js';
     import { onMount } from "svelte";
+    import { base } from '$app/paths';
 
     let num_completed = 0;
 
@@ -60,7 +61,7 @@
 
     async function loadRegex() {
         if ($user.length == 0) {
-            goto("/pragmatic-regex-web/annotate/login")
+            goto(`${base}/annotate/login`)
         }
 
         await fetch(`https://try-regex-default-rtdb.firebaseio.com/collect/${$user}.json`)
@@ -68,7 +69,7 @@
         .then(data => {
             num_completed = data.length;
             if (num_completed > MAX_N) {
-                goto("/pragmatic-regex-web/annotate/nl");
+                goto(`${base}/annotate/nl`);
             }
 
         }).catch(error => {

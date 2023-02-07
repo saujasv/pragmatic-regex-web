@@ -3,6 +3,7 @@
     import { onMount } from 'svelte';
     import { goto } from '$app/navigation';
     import { SvelteToast, toast } from '@zerodevx/svelte-toast';
+    import { base } from '$app/paths';
 
     let N_OPTIONS_CONTEXT = 0;
     let MAX_VERIFICATION = 2;
@@ -11,7 +12,7 @@
 
     async function loadTasks() {
         if ($user.length == 0) {
-            goto("/pragmatic-regex-web/annotate/login")
+            goto(`${base}/annotate/login`)
         }
 
         await fetch(`https://try-regex-default-rtdb.firebaseio.com/collect-test-verify-sampled-options/${N_OPTIONS_CONTEXT}.json`)
@@ -61,7 +62,7 @@
             body: JSON.stringify(answers)
         });
 
-        goto("/pragmatic-regex-web/annotate/examples");
+        goto(`${base}/annotate/examples`);
     }
 
     onMount(loadTasks);

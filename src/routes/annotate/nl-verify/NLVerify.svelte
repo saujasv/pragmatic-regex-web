@@ -3,6 +3,7 @@
     import { onMount } from 'svelte';
     import { goto } from '$app/navigation';
     import { SvelteToast, toast } from '@zerodevx/svelte-toast';
+    import { base } from '$app/paths';
 
     let N_OPTIONS_CONTEXT = 0;
     let MAX_VERIFICATION = 2;
@@ -48,7 +49,7 @@
             body: JSON.stringify(answers)
         });
 
-        goto("/pragmatic-regex-web/annotate/examples");
+        goto(`${base}/annotate/examples`);
     }
 
     onMount(loadTasks);

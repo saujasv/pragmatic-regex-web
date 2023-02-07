@@ -1,6 +1,8 @@
 // import adapter from '@sveltejs/adapter-auto';
 import adapter from 'svelte-adapter-github';
 
+const dev = process.argv.includes('dev');
+
 // /** @type {import('@sveltejs/kit').Config} */
 // const config = {
 // 	kit: {
@@ -12,6 +14,9 @@ import adapter from 'svelte-adapter-github';
 
 export default {
 	kit: {
+		paths: {
+			base: dev ? '' : '/pragmatic-regex-web',
+		  },
 	  adapter: adapter({
 		// default options are shown. On some platforms
 		// these options are set automatically — see below

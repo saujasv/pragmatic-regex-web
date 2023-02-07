@@ -1,9 +1,10 @@
 <script>
 	import { goto } from '$app/navigation';
     import { onMount } from 'svelte';
+    import { base } from '$app/paths';
 
     function goToLogin() {
-        goto("/pragmatic-regex-web/annotate/login");
+        goto(`${base}/annotate/login`);
     }
 
     onMount(goToLogin);

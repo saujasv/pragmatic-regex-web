@@ -48,7 +48,7 @@
             body: JSON.stringify(answers)
         });
 
-        goto("/pragmatic-regex-web/annotate/examples");
+        goto(`${base}/annotate/examples`);
     }
 
     onMount(loadTasks);

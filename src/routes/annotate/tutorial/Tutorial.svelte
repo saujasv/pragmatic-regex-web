@@ -37,7 +37,7 @@
 
     async function loadRegex() {
         if ($user.length == 0) {
-            goto("/pragmatic-regex-web/annotate/login")
+            goto(`${base}/annotate/login`)
         }
 
         await fetch("https://try-regex-default-rtdb.firebaseio.com/programs.json")
@@ -58,7 +58,7 @@
 
 <div class="col-lg-10 mx-auto p-3 py-md-5">
     <header class="d-flex align-items-center pb-3 mb-5 border-bottom">
-        <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+        <a href={base} class="d-flex align-items-center text-dark text-decoration-none">
             <span class="fs-4">Tutorial</span>
         </a>
     </header>
@@ -103,7 +103,7 @@
     </div>
 
     <div class="row-gx-1 py-5 float-right">
-        <button class="btn btn-primary" on:click={() => goto("/pragmatic-regex-web/annotate/verify")}>Proceed to task</button>
+        <button class="btn btn-primary" on:click={() => goto(`${base}/annotate/verify`)}>Proceed to task</button>
     </div>
 
 </div>
