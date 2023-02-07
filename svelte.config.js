@@ -19,7 +19,7 @@ export default {
 		assets: 'docs',
 		fallback: null,
 		precompress: false,
-		domain: '',
+		domain: '/pragmatic-regex-web',
 		jekyll: false
 	  })
 	}
