@@ -60,7 +60,7 @@
 
     async function loadRegex() {
         if ($user.length == 0) {
-            goto("/annotate/login")
+            goto("/pragmatic-regex-web/annotate/login")
         }
 
         await fetch(`https://try-regex-default-rtdb.firebaseio.com/collect/${$user}.json`)
@@ -68,7 +68,7 @@
         .then(data => {
             num_completed = data.length;
             if (num_completed > MAX_N) {
-                goto("/annotate/nl");
+                goto("/pragmatic-regex-web/annotate/nl");
             }
 
         }).catch(error => {

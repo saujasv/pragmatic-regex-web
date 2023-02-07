@@ -3,7 +3,7 @@
     import { onMount } from 'svelte';
 
     function goToLogin() {
-        goto("/annotate/login");
+        goto("/pragmatic-regex-web/annotate/login");
     }
 
     onMount(goToLogin);

@@ -10,28 +10,15 @@
     let answered_idx = [];
 
     async function loadTasks() {
-        if ($user.length == 0) {
-            goto("/pragmatic-regex-web/annotate/login")
-        }
+        // if ($user.length == 0) {
+        //     goto("/annotate/login")
+        // }
 
-        await fetch(`https://try-regex-default-rtdb.firebaseio.com/collect-test-verify-sampled-options/${N_OPTIONS_CONTEXT}.json`)
+        await fetch(`https://try-regex-default-rtdb.firebaseio.com/nl-verify.json`)
         .then(response => response.json())
         .then(data => {
-            let data_copy = [...data];
-            data_copy.sort((x, y) => (x.n_verifications > y.verifications) ? 1 : ((x.id < y.id) ? 0 : (Math.random() > 0.5 ? 1 : 0)));
-            let qs = [];
-            for (let i = 0; i < N_QUESTIONS; i += 1) {
-                qs = [...qs, data_copy[i]];
-                for (let j = 0; j < data.length; j += 1) {
-                    if (data[j].id == data_copy[i].id) {
-                        answered_idx = [...answered_idx, j];
-                    }
-                }
-            }
-            console.log(qs);
-            questions = qs;
+            questions = data;
             answers = Object.fromEntries(Object.entries(questions).map(([k, v], i) => [v.id, null]));
-            console.log(answers);
         }).catch(error => {
             console.log(error);
             return [];
@@ -56,7 +43,7 @@
         }
 
         let username = $user;
-        await fetch(`https://try-regex-default-rtdb.firebaseio.com/collect-test/${$user}.json`, {
+        await fetch(`https://try-regex-default-rtdb.firebaseio.com/collect-nl-verify/${$user}.json`, {
             method: "PUT",
             body: JSON.stringify(answers)
         });
@@ -75,14 +62,18 @@
     </header> -->
 
     <div class="col-lg-10 pt-md-1 pb-md-1">
-        In each of the following questions, you are given a list of examples of strings. The strings in <button class="btn btn-mini btn-primary">blue</button> are positive examples and those in <button class="btn btn-mini btn-danger">red</button> are negative examples. In each case, you are also given options of regular expressions. You need to determine which regular expression matches the given strings.
+        In each of the following questions, you are given an English description of a regular expression, and two sets of examples. Determine which set of examples is consistent with a regular expression described in English.
     </div>
 
     {#each questions as question, i}
         <div class="col-lg-10 pt-md-5 pb-md-1"><h2>Question {i + 1}</h2></div>
 
+        <h3>Description</h3>
+        <p>{question.desc}</p>
+
+        <h3>Set 1</h3>
         <div class="list-group col-lg-10 py-md-3">
-            {#each question.examples as ex}
+            {#each question.set1 as ex}
                 {#if ex.label == "+"}
                     <li class="list-group-item list-group-item-primary">{ex.string}</li>
                 {:else if ex.label == "-"}
@@ -91,15 +82,23 @@
             {/each}
         </div>
 
-        <div class="btn-group-vertical col-lg-10 py-md-3">
-            {#each question.options as opt}
-                <input type="radio" class="btn-check" name="utterance-type-{i}" value={opt.id} id="{i}-{opt.id}" autocomplete="off" bind:group={answers[question.id]}>
-                {#if opt.sat}
-                    <label class="btn btn-outline-success" for="{i}-{opt.id}"><tt>{opt.regex}</tt></label>
-                {:else}
-                    <label class="btn btn-outline-dark" for="{i}-{opt.id}"><tt>{opt.regex}</tt></label>
+        <h3>Set 2</h3>
+        <div class="list-group col-lg-10 py-md-3">
+            {#each question.set2 as ex}
+                {#if ex.label == "+"}
+                    <li class="list-group-item list-group-item-primary">{ex.string}</li>
+                {:else if ex.label == "-"}
+                    <li class="list-group-item list-group-item-danger">{ex.string}</li>
                 {/if}
             {/each}
+        </div>
+
+        <p>Which set of examples is consistent with a regular expression that matches the given description?</p>
+        <div class="btn-group-vertical col-lg-10 py-md-3">
+            <input type="radio" class="btn-check" name="utterance-set-{i}" value=1 id="{i}-set1" autocomplete="off" bind:group={answers[question.id]}>
+            <label class="btn btn-outline-dark" for="{i}-set1"><tt>Set 1</tt></label>
+            <input type="radio" class="btn-check" name="utterance-set-{i}" value=2 id="{i}-set2" autocomplete="off" bind:group={answers[question.id]}>
+            <label class="btn btn-outline-dark" for="{i}-set2"><tt>Set 2</tt></label>
         </div>
     {/each}
 

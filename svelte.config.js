@@ -20,10 +20,7 @@ export default {
 		fallback: null,
 		precompress: false,
 		domain: '',
-		paths: {
-			base: '/pragmatic-regex-web' 
-		},
 		jekyll: false
-	  })
+	  }),
 	}
   };

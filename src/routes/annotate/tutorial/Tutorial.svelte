@@ -1,5 +1,6 @@
 <script>
     import { goto } from '$app/navigation';
+    import { base } from '$app/paths';
     import { user } from '$lib/store.js';
     import { onMount } from "svelte";
     import { SvelteToast, toast } from '@zerodevx/svelte-toast';
@@ -36,7 +37,7 @@
 
     async function loadRegex() {
         if ($user.length == 0) {
-            goto("/annotate/login")
+            goto("/pragmatic-regex-web/annotate/login")
         }
 
         await fetch("https://try-regex-default-rtdb.firebaseio.com/programs.json")
@@ -102,7 +103,7 @@
     </div>
 
     <div class="row-gx-1 py-5 float-right">
-        <button class="btn btn-primary" on:click={() => goto("/annotate/verify")}>Proceed to task</button>
+        <button class="btn btn-primary" on:click={() => goto("/pragmatic-regex-web/annotate/verify")}>Proceed to task</button>
     </div>
 
 </div>

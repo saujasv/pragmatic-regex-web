@@ -26,7 +26,7 @@
         num_completed += 1;
 
         if (num_completed >= MAX_N) {
-            goto("/annotate/finish");
+            goto("/pragmatic-regex-web/annotate/finish");
         }
 
         await loadRegex().then(response => {});
@@ -34,7 +34,7 @@
 
     async function loadRegex() {
         if ($user.length == 0) {
-            goto("/annotate/login")
+            goto("/pragmatic-regex-web/annotate/login")
         }
 
         await fetch("https://try-regex-default-rtdb.firebaseio.com/programs.json")
