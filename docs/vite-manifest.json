@@ -19,7 +19,7 @@
   ".svelte-kit/generated/nodes/10.js": {
     "file": "_app/immutable/chunks/10-710f8f53.js",
     "imports": [
-      "__page-c0e673fa.js",
+      "__page-7c799ff2.js",
       "src/routes/annotate/nl-verify-2/+page.svelte"
     ],
     "isDynamicEntry": true,
@@ -28,7 +28,7 @@
   ".svelte-kit/generated/nodes/11.js": {
     "file": "_app/immutable/chunks/11-a81e94cb.js",
     "imports": [
-      "__page-b95cbc4a.js",
+      "__page-134a0c63.js",
       "src/routes/annotate/tutorial/+page.svelte"
     ],
     "isDynamicEntry": true,
@@ -37,7 +37,7 @@
   ".svelte-kit/generated/nodes/12.js": {
     "file": "_app/immutable/chunks/12-57076aea.js",
     "imports": [
-      "__page-90a7f2f4.js",
+      "__page-c0e673fa.js",
       "src/routes/annotate/verify/+page.svelte"
     ],
     "isDynamicEntry": true,
@@ -62,7 +62,7 @@
   ".svelte-kit/generated/nodes/4.js": {
     "file": "_app/immutable/chunks/4-613da1ef.js",
     "imports": [
-      "__page-da46b06b.js",
+      "__page-2a9d3cfa.js",
       "src/routes/annotate/+page.svelte"
     ],
     "isDynamicEntry": true,
@@ -71,7 +71,7 @@
   ".svelte-kit/generated/nodes/5.js": {
     "file": "_app/immutable/chunks/5-c1d5e49a.js",
     "imports": [
-      "__page-7c799ff2.js",
+      "__page-fca24c55.js",
       "src/routes/annotate/examples/+page.svelte"
     ],
     "isDynamicEntry": true,
@@ -80,16 +80,16 @@
   ".svelte-kit/generated/nodes/6.js": {
     "file": "_app/immutable/chunks/6-cccc9729.js",
     "imports": [
-      "__page-134a0c63.js",
+      "__page-e94d8ac7.js",
       "src/routes/annotate/finish/+page.svelte"
     ],
     "isDynamicEntry": true,
     "src": ".svelte-kit/generated/nodes/6.js"
   },
   ".svelte-kit/generated/nodes/7.js": {
-    "file": "_app/immutable/chunks/7-7b9384be.js",
+    "file": "_app/immutable/chunks/7-e3e999b9.js",
     "imports": [
-      "__page-2a9d3cfa.js",
+      "__page-90a7f2f4.js",
       "src/routes/annotate/login/+page.svelte"
     ],
     "isDynamicEntry": true,
@@ -98,7 +98,7 @@
   ".svelte-kit/generated/nodes/8.js": {
     "file": "_app/immutable/chunks/8-1f0e784f.js",
     "imports": [
-      "__page-e94d8ac7.js",
+      "__page-b95cbc4a.js",
       "src/routes/annotate/nl/+page.svelte"
     ],
     "isDynamicEntry": true,
@@ -107,7 +107,7 @@
   ".svelte-kit/generated/nodes/9.js": {
     "file": "_app/immutable/chunks/9-c31425f9.js",
     "imports": [
-      "__page-fca24c55.js",
+      "__page-da46b06b.js",
       "src/routes/annotate/nl-verify/+page.svelte"
     ],
     "isDynamicEntry": true,
@@ -200,7 +200,7 @@
       ".svelte-kit/generated/nodes/11.js",
       ".svelte-kit/generated/nodes/12.js"
     ],
-    "file": "_app/immutable/start-161cecdb.js",
+    "file": "_app/immutable/start-99c9e310.js",
     "imports": [
       "_index-8cf49659.js",
       "_singletons-2860c33c.js"
@@ -254,7 +254,7 @@
   "src/routes/annotate/+page.js": {
     "file": "_app/immutable/modules/pages/annotate/_page.js-94291217.js",
     "imports": [
-      "__page-da46b06b.js"
+      "__page-2a9d3cfa.js"
     ],
     "isEntry": true,
     "src": "src/routes/annotate/+page.js"
@@ -271,7 +271,7 @@
   "src/routes/annotate/examples/+page.js": {
     "file": "_app/immutable/modules/pages/annotate/examples/_page.js-1f4d7490.js",
     "imports": [
-      "__page-7c799ff2.js"
+      "__page-fca24c55.js"
     ],
     "isEntry": true,
     "src": "src/routes/annotate/examples/+page.js"
@@ -289,7 +289,7 @@
   "src/routes/annotate/finish/+page.js": {
     "file": "_app/immutable/modules/pages/annotate/finish/_page.js-1f4d7490.js",
     "imports": [
-      "__page-134a0c63.js"
+      "__page-e94d8ac7.js"
     ],
     "isEntry": true,
     "src": "src/routes/annotate/finish/+page.js"
@@ -305,13 +305,13 @@
   "src/routes/annotate/login/+page.js": {
     "file": "_app/immutable/modules/pages/annotate/login/_page.js-1f4d7490.js",
     "imports": [
-      "__page-2a9d3cfa.js"
+      "__page-90a7f2f4.js"
     ],
     "isEntry": true,
     "src": "src/routes/annotate/login/+page.js"
   },
   "src/routes/annotate/login/+page.svelte": {
-    "file": "_app/immutable/components/pages/annotate/login/_page.svelte-33ade621.js",
+    "file": "_app/immutable/components/pages/annotate/login/_page.svelte-18e2949d.js",
     "imports": [
       "_index-8cf49659.js",
       "_store-5d6b215d.js",
@@ -324,7 +324,7 @@
   "src/routes/annotate/nl-verify-2/+page.js": {
     "file": "_app/immutable/modules/pages/annotate/nl-verify-2/_page.js-1f4d7490.js",
     "imports": [
-      "__page-c0e673fa.js"
+      "__page-7c799ff2.js"
     ],
     "isEntry": true,
     "src": "src/routes/annotate/nl-verify-2/+page.js"
@@ -343,7 +343,7 @@
   "src/routes/annotate/nl-verify/+page.js": {
     "file": "_app/immutable/modules/pages/annotate/nl-verify/_page.js-1f4d7490.js",
     "imports": [
-      "__page-fca24c55.js"
+      "__page-da46b06b.js"
     ],
     "isEntry": true,
     "src": "src/routes/annotate/nl-verify/+page.js"
@@ -362,7 +362,7 @@
   "src/routes/annotate/nl/+page.js": {
     "file": "_app/immutable/modules/pages/annotate/nl/_page.js-1f4d7490.js",
     "imports": [
-      "__page-e94d8ac7.js"
+      "__page-b95cbc4a.js"
     ],
     "isEntry": true,
     "src": "src/routes/annotate/nl/+page.js"
@@ -380,7 +380,7 @@
   "src/routes/annotate/tutorial/+page.js": {
     "file": "_app/immutable/modules/pages/annotate/tutorial/_page.js-1f4d7490.js",
     "imports": [
-      "__page-b95cbc4a.js"
+      "__page-134a0c63.js"
     ],
     "isEntry": true,
     "src": "src/routes/annotate/tutorial/+page.js"
@@ -401,7 +401,7 @@
   "src/routes/annotate/verify/+page.js": {
     "file": "_app/immutable/modules/pages/annotate/verify/_page.js-1f4d7490.js",
     "imports": [
-      "__page-90a7f2f4.js"
+      "__page-c0e673fa.js"
     ],
     "isEntry": true,
     "src": "src/routes/annotate/verify/+page.js"

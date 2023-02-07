@@ -7,7 +7,7 @@
 	function submitUsername() {
 		if (username.length > 0) {
 			user.set(username);
-			goto("/annotate/tutorial");
+			goto("/pragmatic-regex-web/annotate/tutorial");
 		}
 		else {
 			toast.push("Please enter a valid username", { 
