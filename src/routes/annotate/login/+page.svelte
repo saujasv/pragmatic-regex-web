@@ -28,6 +28,16 @@
 </svelte:head>
 
 <div class="col-lg-6 mx-auto p-3 pt-md-5 pb-md-3 text-center">
+	<p>
+	To track your responses and identify them as coming from the same person, you will submit your responses under a username. To generate the username, visit this <a href="https://www.uuidgenerator.net/version4">UUID generator</a> and generate a Version 4 UUID. You can copy the generated string and paste it into the box below.
+	</p>
+
+	<p>
+	<b>In addition to entering your username here, please note it down in a place where you can refer to it later.</b> If you have technical issues, the username will allow you to pick up where you left off. We only tie your responses to your username, but we do not have a way to match your username to you (since it is a randomly generated string). We will not be able to tell you what your username is.
+	</p>
+</div>
+
+<div class="col-lg-6 mx-auto p-3 pt-md-5 pb-md-3 text-center">
 	<div class="row gx-1">
         <div class="input-group col">
             <span class="input-group-text">Enter username</span>

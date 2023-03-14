@@ -7,28 +7,65 @@
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
 		<meta http-equiv="content-security-policy" content="">
+		<link href="/pragmatic-regex-web/_app/immutable/assets/_layout-f9089e10.css" rel="stylesheet">
 		<link href="/pragmatic-regex-web/_app/immutable/assets/SvelteToast-42b1db04.css" rel="stylesheet">
-		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/start-aa421b4c.js">
-		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/chunks/index-8cf49659.js">
-		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/chunks/singletons-47202174.js">
-		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/chunks/index-acb41fa1.js">
-		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/components/layout.svelte-8f1cbe10.js">
+		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/start-496e7bee.js">
+		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/chunks/index-8c8999cc.js">
+		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/chunks/singletons-5cc1f033.js">
+		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/chunks/index-c767af15.js">
+		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/components/layout.svelte-d3182e96.js">
 		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/modules/pages/_layout.js-9cbb603b.js">
 		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/chunks/_layout-da46b06b.js">
-		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/components/pages/annotate/_layout.svelte-24d5100e.js">
-		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/chunks/store-5d6b215d.js">
-		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/components/pages/annotate/nl-verify/_page.svelte-9caa8e05.js">
-		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/chunks/navigation-a2e8446c.js">
-		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/chunks/SvelteToast-321309d1.js">
+		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/components/pages/annotate/_layout.svelte-db812fc6.js">
+		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/chunks/store-5a2d893e.js">
+		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/chunks/Guide-1fca03f4.js">
+		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/components/pages/annotate/nl-verify/_page.svelte-28eaf937.js">
+		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/chunks/navigation-8ff8a9af.js">
+		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/chunks/SvelteToast-1a379818.js">
 		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/modules/pages/annotate/nl-verify/_page.js-1f4d7490.js">
-		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/chunks/_page-b95cbc4a.js"><title>Regex from Examples</title><!-- HEAD_svelte-tap1z9_START --><meta name="description" content="Regular expressions from examples"><!-- HEAD_svelte-tap1z9_END -->
+		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/chunks/_page-da46b06b.js"><title>Regex from Examples</title><!-- HEAD_svelte-tap1z9_START --><meta name="description" content="Regular expressions from examples"><!-- HEAD_svelte-tap1z9_END -->
 	</head>
 	<body data-sveltekit-prefetch>
 		<div style="display: contents">
 
 
 <nav class="navbar sticky-top navbar-light bg-light justify-content-between"><span class="navbar-brand px-3 h1">Regular expressions from examples</span>
-    </nav>
+    
+    <button class="btn btn-primary px-3 mx-3">Regex cheatsheet</button></nav>
+
+
+<dialog class="svelte-tnzoeg"><div class="svelte-tnzoeg"><div style="display:flex"><h2 slot="header">Regular Expression Reference
+	</h2>
+		<button class="btn btn-primary mx-3 svelte-tnzoeg" float="right" autofocus>Close</button></div>
+		<hr>
+		<div>Let <tt>A</tt> and <tt>B</tt> be regular expressions. For examples, we will let <tt>A</tt> be <tt>(abc)</tt> and <tt>B</tt> be <tt>(xyz)</tt>. We can construct more complex regular expressions from <tt>A</tt> and <tt>B</tt> by composing the expressions together with operations. The atomic units of regular expressions are characters and character classes. We consider a string to be consistent with a regular expression only if the <em>entire</em> string matches or does not match the regular expression. Partial matches are not considered.
+    
+    <h3>Operations</h3>
+    <ul><li><tt>AB</tt>: An occurrence of <tt>A</tt> followed by an occurrence of <tt>B</tt></li>
+        <ul><li><tt>abcxyz</tt> is consistent with <tt>AB</tt>, but <tt>abc</tt>, <tt>xyz</tt>, and <tt>pabcxyzq</tt> are not consistent</li>
+            <li>In the example, <tt>AB</tt> is written as <tt>(abc)(xyz)</tt> but where there is no ambiguity, the parentheses may be eliminated and the expression written simply as <tt>abcxyz</tt></li></ul>
+        <li><tt>A*</tt>: 0 or more occurrences of <tt>A</tt></li>
+        <ul><li><tt>abc</tt> and <tt>abcabc</tt> and the empty string are consistent with <tt>A*</tt>, but <tt>abcab</tt> and <tt>babca</tt> are not consistent</li></ul>
+        <li><tt>A+</tt>: 1 or more occurrences of <tt>A</tt></li>
+        <ul><li><tt>abc</tt> and <tt>abcabcabc</tt> are consistent with <tt>A+</tt>, but <tt>abcab</tt> and <tt>ababc</tt> are not consistent</li></ul>
+        <li><tt>A?</tt>: 0 or 1 occurrences of <tt>A</tt></li>
+        <ul><li><tt>abc</tt> and the empty string are consistent with <tt>A?</tt>, but <tt>cbabc</tt> and <tt>abcabcabc</tt> are not consistent</li></ul>
+        <li><tt>A{n,}</tt>: n or more occurrences of <tt>A</tt></li>
+        <ul><li>If <tt>n</tt> is <tt>2</tt>, <tt>abcabc</tt> and <tt>abcabcabc</tt> are consistent with <tt>A{2,}</tt>, but <tt>abc</tt> and <tt>abcabcab</tt> are not</li></ul>
+        <li><tt>A{n,m}</tt>: between <tt>n</tt> and <tt>m</tt> occurrences of <tt>A</tt></li>
+        <ul><li>If <tt>n</tt> is <tt>1</tt> and <tt>m</tt> is <tt>3</tt>, <tt>abcabc</tt> and <tt>abcabcabc</tt> are consistent with <tt>A{1,3}</tt>, but <tt>ab</tt> and <tt>abcabcabcabc</tt> are not</li></ul></ul>
+    
+    <h3>Character classes</h3>
+    Character classes are sets of characters that are grouped with the union operator <tt>[]</tt>, written with no separators. Each character may be thought of a singleton set, and the square brackets may not be written for readability. While any characters may be grouped in a union, some groups have special notation for convenience.
+    <ul><li><tt>[A-Z]</tt>: The set of all uppercase letters</li>
+        <li><tt>[a-z]</tt>: The set of all lowercase letters</li>
+        <li><tt>[0-9]</tt>: The set of digits</li>
+        <li>These groups may also be combined by writing them one after the other, for example <tt>[a-z0-9]</tt> (which denotes the union of all lowercase letters and digits) or <tt>[A-Za-z]</tt> (which denotes the union of all upper- and lowercase letters)</li></ul>
+
+    <h3>Escape characters</h3>
+    Sometimes, we want to our regular expressions to include characters used to represent operators or other symbols that have significance in the syntax for regexes. In this case, we use the <tt>\</tt> symbol to &quot;escape&quot; the following character – treat it as a character and not as an operator. For example, the string <tt>[A-Z]</tt> is consistent with the regular expression <tt>\[A\-Z\]</tt> but not consistent with <tt>[A-Z]</tt>.
+</div></div>
+</dialog>
 
 
 
@@ -46,8 +83,8 @@
 </div>
 
 
-		<script type="module" data-sveltekit-hydrate="165riy4">
-			import { start } from "/pragmatic-regex-web/_app/immutable/start-aa421b4c.js";
+		<script type="module" data-sveltekit-hydrate="3h4qts">
+			import { start } from "/pragmatic-regex-web/_app/immutable/start-496e7bee.js";
 
 			start({
 				env: {},
@@ -61,8 +98,8 @@
 					form: null
 				},
 				paths: {"base":"/pragmatic-regex-web","assets":"/pragmatic-regex-web"},
-				target: document.querySelector('[data-sveltekit-hydrate="165riy4"]').parentNode,
-				version: "1675782498883"
+				target: document.querySelector('[data-sveltekit-hydrate="3h4qts"]').parentNode,
+				version: "1678809216086"
 			});
 		</script>
 	</div>

@@ -3,14 +3,23 @@
     import { user } from '$lib/store.js';
     import { onMount } from "svelte";
     import { base } from '$app/paths';
+    import { SvelteToast, toast } from '@zerodevx/svelte-toast';
+
+    function getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
+    }
 
     let num_completed = 0;
 
     let events_log = [];
 
-    let MAX_N = 2;
+    let MAX_ANNOTATION = 1;
+    let MAX_PROGRAMS = 3;
 
     let regex = "";
+    let progid = "";
 
     let current_utterance_string = "";
     let current_utterance_label = null;
@@ -35,11 +44,23 @@
                 id += 1;
             }
             else {
-                // TOAST
-            }
+                toast.push("Label not provided", { 
+                    theme: {
+                        '--toastBarHeight': 0,
+                        '--toastBackground': 'red'
+                    }
+                });
+                return;
+                }
         }
         else {
-            // TOAST
+            toast.push("Please enter a valid string", { 
+				theme: {
+					'--toastBarHeight': 0,
+					'--toastBackground': 'red'
+				}
+			});
+			return;
         }
     }
 
@@ -48,11 +69,10 @@
     }
 
     async function submitUtterances() {
-        await fetch(`https://try-regex-default-rtdb.firebaseio.com/collect/${$user}.json`, {
+        console.log(progid);
+        await fetch(`https://try-regex-default-rtdb.firebaseio.com/heldout-describe-pilot/${progid}/descriptions/${$user}.json`, {
             method: "PUT",
-            body: JSON.stringify({
-                [`round-${num_completed}`]: utterances
-            })
+            body: JSON.stringify(utterances)
         })
         utterances = [];
 
@@ -64,28 +84,46 @@
             goto(`${base}/annotate/login`)
         }
 
-        await fetch(`https://try-regex-default-rtdb.firebaseio.com/collect/${$user}.json`)
-        .then(response => response.json())
-        .then(data => {
-            num_completed = data.length;
-            if (num_completed > MAX_N) {
-                goto(`${base}/annotate/nl`);
+        let data = await fetch("https://try-regex-default-rtdb.firebaseio.com/heldout-describe-pilot.json")
+        .then(response => response.json());
+
+        let completed = new Object();
+        let candidates = new Object();
+        for (var x in data) {
+            if (data[x].hasOwnProperty("descriptions")) {
+                if (data[x]["descriptions"].hasOwnProperty($user)) {
+                    completed[x] = data[x];
+                }
+                if (Object.keys(data[x]["descriptions"]).length < MAX_ANNOTATION) {
+                    candidates[x] = data[x];
+                }
             }
+            else {
+                candidates[x] = data[x];
+            }
+        }
 
-        }).catch(error => {
-            console.log(error);
-            return [];
-        });
+        if (Object.keys(completed).length > MAX_PROGRAMS) {
+            goto(`${base}/annotate/finish`)
+        }
 
-        await fetch("https://try-regex-default-rtdb.firebaseio.com/programs.json")
-        .then(response => response.json())
-        .then(data => {
-            let n = data.length;
-            regex = data[Math.floor(Math.random() * (n - 1))];
-        }).catch(error => {
-            console.log(error);
-            return [];
-        });
+        if (Object.keys(candidates).length == 0) {
+            goto(`${base}/annotate/finish`);
+        }
+
+        let j = getRandomInt(0, Object.keys(candidates).length);
+        console.log(j);
+        let i = 0
+        for (var x in candidates) {
+            if (i == j) {
+                progid = x;
+                regex = candidates[x]["program"];
+                console.log(x, candidates[x]);
+                console.log(progid, regex);
+                return;
+            }
+            i += 1;
+        }
     }
 
     onMount(loadRegex);
@@ -102,7 +140,7 @@
             <span class="input-group-text">Enter example</span>
             <input type="text" class="form-control" bind:value={current_utterance_string} >
             <input type="radio" class="btn-check" bind:group={current_utterance_label} name="utterance-type" value={"+"} id="positive" autocomplete="off">
-            <label class="btn btn-outline-success" for="positive">+</label>
+            <label class="btn btn-outline-primary" for="positive">+</label>
             <input type="radio" class="btn-check" bind:group={current_utterance_label} name="utterance-type" value={"-"} id="negative" autocomplete="off">
             <label class="btn btn-outline-danger" for="negative">-</label>
         </div>
@@ -126,6 +164,8 @@
     <div class="col-lg-6 py-md-5">
         <button class="btn btn-success btn-lg float-end" on:click={submitUtterances}>Submit</button>
     </div>
+
+    <SvelteToast />
 </div>
   
 <style>

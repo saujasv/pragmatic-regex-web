@@ -1,5 +1,5 @@
 <script>
-    import { user } from '$lib/store.js';
+    import { user, db } from '$lib/store.js';
     import { onMount } from 'svelte';
     import { goto } from '$app/navigation';
     import { SvelteToast, toast } from '@zerodevx/svelte-toast';
@@ -7,62 +7,101 @@
 
     let N_OPTIONS_CONTEXT = 0;
     let MAX_VERIFICATION = 2;
-    let N_QUESTIONS = 5;
+    let N_QUESTIONS = 2;
     let answered_idx = [];
+    let N = 0;
+
+    function getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
+    }
+
 
     async function loadTasks() {
         if ($user.length == 0) {
             goto(`${base}/annotate/login`)
         }
 
-        await fetch(`https://try-regex-default-rtdb.firebaseio.com/collect-test-verify-sampled-options/${N_OPTIONS_CONTEXT}.json`)
-        .then(response => response.json())
-        .then(data => {
-            let data_copy = [...data];
-            data_copy.sort((x, y) => (x.n_verifications > y.verifications) ? 1 : ((x.id < y.id) ? 0 : (Math.random() > 0.5 ? 1 : 0)));
-            let qs = [];
-            for (let i = 0; i < N_QUESTIONS; i += 1) {
-                qs = [...qs, data_copy[i]];
-                for (let j = 0; j < data.length; j += 1) {
-                    if (data[j].id == data_copy[i].id) {
-                        answered_idx = [...answered_idx, j];
-                    }
-                }
-            }
-            console.log(qs);
-            questions = qs;
-            answers = Object.fromEntries(Object.entries(questions).map(([k, v], i) => [v.id, null]));
-            console.log(answers);
-        }).catch(error => {
+        let data = await fetch(`${db}/pilot-options.json`).then(response => response.json()).catch(error => {
             console.log(error);
             return [];
         });
-    }
 
-    let questions = [];
-
-    let answers = [];
-
-    async function handleSubmit() {
-        for (let qid in answers) {
-            if (answers[qid] === null) {
-                toast.push("Please answer all the questions to proceed.", { 
-                    theme: {
-                        '--toastBarHeight': 0,
-                        '--toastBackground': 'red'
-                    }
-                });
-                return;
+        let completed = new Object();
+        let candidates = new Object();
+        for (var x in data) {
+            if (data[x].hasOwnProperty("verifications")) {
+                if (data[x]["verifications"].hasOwnProperty($user)) {
+                    completed[x] = data[x];
+                }
+                if (Object.keys(data[x]["verifications"]).length < MAX_VERIFICATION) {
+                    candidates[x] = data[x];
+                }
+            }
+            else {
+                candidates[x] = data[x];
             }
         }
 
-        let username = $user;
-        await fetch(`https://try-regex-default-rtdb.firebaseio.com/collect-test/${$user}.json`, {
+        if (Object.keys(completed).length >= N_QUESTIONS) {
+            goto(`${base}/annotate/examples`);
+        }
+
+        if (Object.keys(candidates).length == 0) {
+            goto(`${base}/annotate/examples`);
+        }
+
+        let j = getRandomInt(0, Object.keys(candidates).length);
+        console.log(j);
+        let i = 0
+        for (var x in candidates) {
+            if (i == j) {
+                question_id = x;
+                question = candidates[x];
+                answer = null;
+                console.log(x, candidates[x]);
+                console.log(question_id, question);
+                return;
+            }
+            i += 1;
+        }
+    }
+
+    let question_id = "";
+    let question = {
+        examples: [],
+        options: []
+    };
+
+    let answer = null;
+
+    async function handleSubmit() {
+        if (answer === null) {
+            toast.push("Please answer to proceed", { 
+				theme: {
+					'--toastBarHeight': 0,
+					'--toastBackground': 'red'
+				}
+			});
+			return;
+        }
+
+        console.log(question_id);
+        await fetch(`https://try-regex-default-rtdb.firebaseio.com/pilot-options/${question_id}/verifications/${$user}.json`, {
             method: "PUT",
-            body: JSON.stringify(answers)
+            body: answer
         });
 
-        goto(`${base}/annotate/examples`);
+        N += 1;
+        // question_id = "";
+        // question = {
+        //     examples: [],
+        //     options: []
+        // };
+
+        // goto(`${base}/annotate/verify`);
+        loadTasks();
     }
 
     onMount(loadTasks);
@@ -76,38 +115,37 @@
     </header> -->
 
     <div class="col-lg-10 pt-md-1 pb-md-1">
-        In each of the following questions, you are given a list of examples of strings. The strings in <button class="btn btn-mini btn-primary">blue</button> are positive examples and those in <button class="btn btn-mini btn-danger">red</button> are negative examples. In each case, you are also given options of regular expressions. You need to determine which regular expression matches the given strings.
+        You are given a list of examples of strings. The strings in <button class="btn btn-mini btn-primary">blue</button> are positive examples and those in <button class="btn btn-mini btn-danger">red</button> are negative examples. You are also given options of regular expressions. You need to choose which regular expression best fits the given set of examples. If there are multiple consistent regular expressions, choose the one you think a person who provided these examples was most likely to refer to.
     </div>
 
-    {#each questions as question, i}
-        <div class="col-lg-10 pt-md-5 pb-md-1"><h2>Question {i + 1}</h2></div>
+    {#key N}
+    <div class="list-group col-lg-10 py-md-3">
+        {#each question.examples as ex}
+            {#if ex.label == "+"}
+                <li class="list-group-item list-group-item-primary">{ex.string}</li>
+            {:else if ex.label == "-"}
+                <li class="list-group-item list-group-item-danger">{ex.string}</li>
+            {/if}
+        {/each}
+    </div>
 
-        <div class="list-group col-lg-10 py-md-3">
-            {#each question.examples as ex}
-                {#if ex.label == "+"}
-                    <li class="list-group-item list-group-item-primary">{ex.string}</li>
-                {:else if ex.label == "-"}
-                    <li class="list-group-item list-group-item-danger">{ex.string}</li>
-                {/if}
-            {/each}
-        </div>
-
-        <div class="btn-group-vertical col-lg-10 py-md-3">
-            {#each question.options as opt}
-                <input type="radio" class="btn-check" name="utterance-type-{i}" value={opt.id} id="{i}-{opt.id}" autocomplete="off" bind:group={answers[question.id]}>
-                {#if opt.sat}
-                    <label class="btn btn-outline-success" for="{i}-{opt.id}"><tt>{opt.regex}</tt></label>
-                {:else}
-                    <label class="btn btn-outline-dark" for="{i}-{opt.id}"><tt>{opt.regex}</tt></label>
-                {/if}
-            {/each}
-        </div>
-    {/each}
+    <div class="btn-group-vertical col-lg-10 py-md-3">
+        {#each question.options as opt}
+            <input type="radio" class="btn-check" name="utterance-type" value={opt.id} id="{opt.id}" autocomplete="off" bind:group={answer}>
+            {#if opt.ground_truth}
+                <label class="btn btn-outline-primary" for="{opt.id}"><tt>{opt.regex}</tt></label>
+            {:else if opt.sat}
+                <label class="btn btn-outline-success" for="{opt.id}"><tt>{opt.regex}</tt></label>
+            {:else}
+                <label class="btn btn-outline-dark" for="{opt.id}"><tt>{opt.regex}</tt></label>
+            {/if}
+        {/each}
+    </div>
 
     <div class="col-lg-10 py-md-5">
         <button class="btn btn-success btn-lg float-end" on:click={handleSubmit}>Submit</button>
     </div>
-
+    {/key}
     <SvelteToast />
 </div>
 
