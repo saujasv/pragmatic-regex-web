@@ -3,6 +3,7 @@
 	import { goto } from '$app/navigation';
 	import { SvelteToast, toast } from '@zerodevx/svelte-toast';
 	import { base } from '$app/paths';
+	import { dev } from '$app/environment';
 
 	let username = "";
 	function submitUsername() {

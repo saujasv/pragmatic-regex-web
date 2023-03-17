@@ -9,20 +9,20 @@
 		<meta http-equiv="content-security-policy" content="">
 		<link href="/pragmatic-regex-web/_app/immutable/assets/_layout-f9089e10.css" rel="stylesheet">
 		<link href="/pragmatic-regex-web/_app/immutable/assets/SvelteToast-42b1db04.css" rel="stylesheet">
-		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/start-e5c54470.js">
-		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/chunks/index-8c8999cc.js">
-		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/chunks/singletons-5cc1f033.js">
-		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/chunks/index-c767af15.js">
-		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/components/layout.svelte-d3182e96.js">
+		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/start-8d205150.js">
+		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/chunks/index-0e9e634d.js">
+		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/chunks/singletons-69107a7c.js">
+		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/chunks/index-5371d31d.js">
+		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/components/layout.svelte-a9589a61.js">
 		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/modules/pages/_layout.js-9cbb603b.js">
 		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/chunks/_layout-da46b06b.js">
-		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/components/pages/annotate/_layout.svelte-db812fc6.js">
-		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/chunks/store-5a2d893e.js">
-		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/chunks/Guide-1fca03f4.js">
-		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/components/pages/annotate/tutorial/_page.svelte-35e2dd86.js">
-		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/chunks/navigation-8ff8a9af.js">
+		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/components/pages/annotate/_layout.svelte-7ca0e678.js">
+		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/chunks/store-cf389518.js">
+		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/components/pages/annotate/tutorial/_page.svelte-2392ff59.js">
+		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/chunks/navigation-c15f7844.js">
+		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/chunks/stores-3e1ed05a.js">
 		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/modules/pages/annotate/tutorial/_page.js-1f4d7490.js">
-		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/chunks/_page-134a0c63.js"><title>Regex from Examples</title><!-- HEAD_svelte-tap1z9_START --><meta name="description" content="Regular expressions from examples"><!-- HEAD_svelte-tap1z9_END -->
+		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/chunks/_page-c0e673fa.js"><title>Regex from Examples</title><!-- HEAD_svelte-tap1z9_START --><meta name="description" content="Regular expressions from examples"><!-- HEAD_svelte-tap1z9_END -->
 	</head>
 	<body data-sveltekit-prefetch>
 		<div style="display: contents">
@@ -70,84 +70,120 @@
 
 <div class="col-lg-10 mx-auto p-3 py-md-5"><header class="d-flex align-items-center pb-3 mb-5 border-bottom"><a href="/pragmatic-regex-web" class="d-flex align-items-center text-dark text-decoration-none"><h1>Tutorial</h1></a></header>
 
-    <p>A <b>regular expression</b> is an expression that represents a <em>regular language</em>. A <em>language</em> in this context is a set of strings, and a <em>regular</em> language is a specific type of language (the distinction is not critical for the task). Another way to view a regular language is as a <em>function</em> that assigns a label to every possible string that indicates whether or not the string belongs to that language. A regular expression is a way of specifying a regular language that allows us to create more complex languages by combining simpler languages in specific ways.
+    <p>In programming, we are often faced with the task of recognizing whether a string takes a particular form. For example, given a string that a user provides, a web programmer might want to determine whether it is a phone number. In this situation, the programmer implicitly has a set of strings in mind that are phone numbers. It is difficult to represent this set of strings by listing every member in that set (there may be millions, or billions, or even an infinite number). Instead, they may have a certain template in mind, which they use to describe the phone number, and strings that match this template as accepted, and those that do not match are rejected.
     </p>
 
-    <p>There are multiple variants of regular expression syntax, each of which allows for a different set of operations. Here, we provide a short tutorial to the regular expressions syntax that you will need to complete this task. You can read about the various constructs you will see as you perform the task along with examples. At the end of the page, you can also try out providing examples and seeing whether they are consistent to get a sense for how the task works. At any point during the task, if you&#39;d like to refer to these instructions, you can click on the <button class="btn btn-primary">Regex cheatsheet</button> button on the top right corner of the screen to review the instructions. When you have read the tutorial, tried out a few examples, and feel comfortable with the setting, click on the <button class="btn btn-primary">Proceed to task</button> button at the end of the page to move on to the next stage of the task.
+    <p><b>Regular expressions</b> are a kind of program that is useful in these situations. These expressions can be seen as functions that implicitly define a set of strings. This function takes a string and determines a boolean value that says whether the string belongs to the set. A regular expression is a way of specifying a this set of strings that allows us to create more complex sets by combining simpler sets in specific ways.
     </p>
 
-    <div>Let <tt>A</tt> and <tt>B</tt> be regular expressions. For examples, we will let <tt>A</tt> be <tt>(abc)</tt> and <tt>B</tt> be <tt>(xyz)</tt>. We can construct more complex regular expressions from <tt>A</tt> and <tt>B</tt> by composing the expressions together with operations. The atomic units of regular expressions are characters and character classes. We consider a string to be consistent with a regular expression only if the <em>entire</em> string matches or does not match the regular expression. Partial matches are not considered.
-    
-    <h3>Operations</h3>
-    <ul><li><tt>AB</tt>: An occurrence of <tt>A</tt> followed by an occurrence of <tt>B</tt></li>
-        <ul><li><tt>abcxyz</tt> is consistent with <tt>AB</tt>, but <tt>abc</tt>, <tt>xyz</tt>, and <tt>pabcxyzq</tt> are not consistent</li>
-            <li>In the example, <tt>AB</tt> is written as <tt>(abc)(xyz)</tt> but where there is no ambiguity, the parentheses may be eliminated and the expression written simply as <tt>abcxyz</tt></li></ul>
-        <li><tt>A*</tt>: 0 or more occurrences of <tt>A</tt></li>
-        <ul><li><tt>abc</tt> and <tt>abcabc</tt> and the empty string are consistent with <tt>A*</tt>, but <tt>abcab</tt> and <tt>babca</tt> are not consistent</li></ul>
-        <li><tt>A+</tt>: 1 or more occurrences of <tt>A</tt></li>
-        <ul><li><tt>abc</tt> and <tt>abcabcabc</tt> are consistent with <tt>A+</tt>, but <tt>abcab</tt> and <tt>ababc</tt> are not consistent</li></ul>
-        <li><tt>A?</tt>: 0 or 1 occurrences of <tt>A</tt></li>
-        <ul><li><tt>abc</tt> and the empty string are consistent with <tt>A?</tt>, but <tt>cbabc</tt> and <tt>abcabcabc</tt> are not consistent</li></ul>
-        <li><tt>A{n,}</tt>: n or more occurrences of <tt>A</tt></li>
-        <ul><li>If <tt>n</tt> is <tt>2</tt>, <tt>abcabc</tt> and <tt>abcabcabc</tt> are consistent with <tt>A{2,}</tt>, but <tt>abc</tt> and <tt>abcabcab</tt> are not</li></ul>
-        <li><tt>A{n,m}</tt>: between <tt>n</tt> and <tt>m</tt> occurrences of <tt>A</tt></li>
-        <ul><li>If <tt>n</tt> is <tt>1</tt> and <tt>m</tt> is <tt>3</tt>, <tt>abcabc</tt> and <tt>abcabcabc</tt> are consistent with <tt>A{1,3}</tt>, but <tt>ab</tt> and <tt>abcabcabcabc</tt> are not</li></ul></ul>
-    
-    <h3>Character classes</h3>
-    Character classes are sets of characters that are grouped with the union operator <tt>[]</tt>, written with no separators. Each character may be thought of a singleton set, and the square brackets may not be written for readability. While any characters may be grouped in a union, some groups have special notation for convenience.
-    <ul><li><tt>[A-Z]</tt>: The set of all uppercase letters</li>
-        <li><tt>[a-z]</tt>: The set of all lowercase letters</li>
-        <li><tt>[0-9]</tt>: The set of digits</li>
-        <li>These groups may also be combined by writing them one after the other, for example <tt>[a-z0-9]</tt> (which denotes the union of all lowercase letters and digits) or <tt>[A-Za-z]</tt> (which denotes the union of all upper- and lowercase letters)</li></ul>
+    <p>In this task, we will look at the problem of finding a regular expression when given a set of examples of strings in, or not in, the set of strings defined by the regular expression. Thinking of the regular expression as a function, we can view this as finding a regular expression given examples of inputs and outputs of this function.
+    </p>
 
-    <h3>Escape characters</h3>
-    Sometimes, we want to our regular expressions to include characters used to represent operators or other symbols that have significance in the syntax for regexes. In this case, we use the <tt>\</tt> symbol to &quot;escape&quot; the following character – treat it as a character and not as an operator. For example, the string <tt>[A-Z]</tt> is consistent with the regular expression <tt>\[A\-Z\]</tt> but not consistent with <tt>[A-Z]</tt>.
-</div>
+    
+
+    <h2>Regular expression syntax</h2>
+    <p>There are multiple variants of regular expression syntax, each of which allows for a different set of operations. Here, we provide a short tutorial to the regular expressions syntax that you will need to complete this task. You can read about the various constructs you will see as you perform the task along with examples.  At any point during the task, if you&#39;d like to refer to these instructions, you can click on the <button class="btn btn-sm btn-primary">Regex cheatsheet</button> button on the top right corner of the screen to review the instructions. When you have read the tutorial, and feel comfortable with the setting, you can take a small quiz at the end of the page to move on to the next stage of the task.
+    </p>
+    
+
+    
+
+    <p>The most basic type of regular expressions are single characters. Each character is a regular expression that represents the singleton set of strings containing just that character. 
+    </p>
+    <ul><li><tt>a</tt> is a regular expression that represents the singleton set of strings <tt>{ &quot;a&quot; }</tt></li></ul>
+
+    <p>You can also specify a regular expression that matches one of a set of single characters using the <tt>[]</tt> operator.
+    </p>
+    <ul><li><tt>[apx2]</tt> represents the set of strings <tt>{ &quot;a&quot;, &quot;p&quot;, &quot;x&quot;, &quot;2&quot; }</tt></li></ul>
+
+    <p>Some frequently used groups of single characters are designated special syntax, and match any single character strings
+    </p>
+    <ul><li><tt>[a-z]</tt> represents the set of all lowercase characters <tt>{ &quot;a&quot;, &quot;b&quot;, &quot;c&quot;, ..., &quot;z&quot; }</tt></li>
+        <li><tt>[A-Z]</tt> represents the set of all uppercase characters <tt>{ &quot;A&quot;, &quot;B&quot;, &quot;C&quot;, ..., &quot;Z&quot; }</tt></li>
+        <li><tt>[0-9]</tt> represents the set of all digits <tt>{ &quot;0&quot;, &quot;1&quot;, ..., &quot;9&quot; }</tt></li>
+        <li>The union of these sets can be descibed by writing both within <tt>[]</tt>
+            <ul><li><tt>[a-zA-Z]</tt> represents the union of the sets descibed by <tt>[a-z]</tt> and <tt>[A-Z]</tt></li>
+                <li><tt>[a-z0-9]</tt> represents the union of the sets descibed by <tt>[a-z]</tt> and <tt>[0-9]</tt></li></ul></li>
+        <li><tt>.</tt> represents the set of all single characters</li></ul>
+
+    <p>So far we have seen examples of regular expressions that match single-character strings. Regular expressions matching multi-character strings can be formed using the <em>concatenation</em> operation, which involves writing the two regular expressions in order. Here, if we have two regular expressions <em><tt>A</tt></em> and <em><tt>B</tt></em>, <tt>(<em>A</em>)(<em>B</em>)</tt> represets their concatenation. We can also concatenate more than two regular expressions like in <tt>(<em>A</em>)(<em>B</em>)(<em>C</em>)</tt>. Note that <em><tt>A</tt></em>, <em><tt>B</tt></em>, <em><tt>C</tt></em>, etc. (in italicized font) can be any regular expressions, including the simple ones described above, and the more complex ones described below.
+    </p>
+    <ul><li><tt>([a-z])(,)([0-9])</tt> represents the set of strings where a lowercase character is followed by a comma, and then a single digit – <tt>{ &quot;a,0&quot;, &quot;a,1&quot;, ..., &quot;z,9&quot; }</tt>. Here, the grouping of characters is unambigouous, so we can write the regular expression without parentheses as <tt>[a-z],[0-9]</tt>.</li></ul>
+
+    <p>We can describe unions of multi-character regular expressions <tt><em>A</em></tt> and <tt><em>B</em></tt> using <tt>(<em>A</em>|<em>B</em>)</tt>. 
+    </p>
+    <ul><li><tt>([a-z],|[A-Z];)</tt> represents either a lowercase letter followed by a comma, or an uppercase character followed by a semi-colon. The strings <tt>&quot;a,&quot;</tt> and <tt>&quot;H;&quot;</tt> belong to this set, while <tt>&quot;A,&quot;</tt> and <tt>&quot;a;&quot;</tt> do not.</li></ul>
+
+    <p>We can describe repetitions of regular expressions using special syntax. <tt>(<em>A</em>){<em>n</em>,<em>m</em>}</tt> represents between <tt><em>n</em></tt> and <tt><em>m</em></tt> consecutive occurrences of <tt><em>A</em></tt>.
+    </p>
+    <ul><li><tt>([a-z],){2,4}</tt> represents the between two and four consecutive occurences of a lowercase letter followed by a comma. The strings <tt>&quot;a,b,&quot;</tt> and <tt>&quot;a,b,p,e,&quot;</tt> belong to this set, while <tt>&quot;a,&quot;</tt> and <tt>&quot;a,b,p,e,x&quot;</tt> do not. Note that we used parentheses to indicate grouping here. If we had instead written the regular expression as <tt>[a-z],{2,4}</tt>, only the comma would be repeated between two to four times.</li></ul>
+
+    <p>Some frequently used cases of repetition have special syntax.
+    </p>
+    <ul><li><tt>(<em>A</em>)?</tt> is the case of <tt><em>n</em> = 0</tt> and <tt><em>m</em> = 1</tt>. 
+            <ul><li><tt>([a-z],)?</tt> represents the between zero and one occurences of a lowercase letter followed by a comma. The empty string <tt>&quot;&quot;</tt> and <tt>&quot;a,&quot;</tt> belong to this set, while <tt>&quot;a,b,&quot;</tt> and <tt>&quot;a,b,p,e,x&quot;</tt> do not.</li></ul></li>
+        <li><tt>(<em>A</em>)*</tt> is the case of <tt><em>n</em> = 0</tt> and <tt><em>m</em></tt> is unbounded. 
+            <ul><li><tt>([a-z],)?</tt> represents the between zero or more occurences of a lowercase letter followed by a comma. The empty string <tt>&quot;&quot;</tt> and <tt>&quot;a,b,b,&quot;</tt> belong to this set, while <tt>&quot;a,b&quot;</tt> and <tt>&quot;a,b,p&quot;</tt> do not.</li></ul></li>
+        <li><tt>(<em>A</em>)+</tt> is the case of <tt><em>n</em> = 1</tt> and <tt><em>m</em></tt> is unbounded. 
+            <ul><li><tt>([a-z],)?</tt> represents the between one or more occurences of a lowercase letter followed by a comma.<tt>&quot;a,&quot;</tt> and <tt>&quot;a,b,b,&quot;</tt> belong to this set, while <tt>&quot;a,b&quot;</tt> and <tt>&quot;&quot;</tt> do not.</li></ul></li></ul>
+
+    <p>Sometimes, we want to our regular expressions to include characters used to represent operators or other symbols that have significance in the syntax for regexes. In this case, we use the <tt>\</tt> symbol to &quot;escape&quot; the following character – treat it as a character and not as an operator.
+    </p>
+    <ul><li>The string <tt>&quot;[A-Z]&quot;</tt> is consistent with the regular expression <tt>\[A\-Z\]</tt> but not consistent with <tt>[A-Z]</tt>.</li></ul>
+
+    <h2>Match and correctness</h2>
+    <p>We have described sets of strings corresponding to regular expressions above. A string is said to <b>match</b> a regular expression if the string belongs to the set of expressions that the regular expression defines. However, when describing a regular expression in terms of which strings it matches, it is often useful to use negative examples – strings that should <em>not</em> be in the set of the desired regular expression.
+    </p>
+    
+    <p>To allow for this, we consider an example to be both a string, and a label that says whether the string should match the regular expression. Given a particular <b>string</b>, they assign a <b>label</b> <button class="btn btn-sm btn-primary"><i class="fa-solid fa-plus"></i></button> if the string belongs to the set, and the label <button class="btn btn-sm btn-danger"><i class="fa-solid fa-minus"></i></button> if the string does not belong to the set. The <em>correctness</em> of an example is determined by whether the label is correct for a given string and regular expression. As part of this task, you may provide strings that have either label (<button class="btn btn-sm btn-primary"><i class="fa-solid fa-plus"></i></button> or <button class="btn btn-sm btn-danger"><i class="fa-solid fa-minus"></i></button>) – string that either match or do not match the regular expression – but the examples must be correct.
+    </p>
+
+    <p>A <b>specification</b> is a set of examples, where all the examples are correct for the intended regular expression.</p>
 
     <hr>
 
-    <header class="d-flex align-items-center pb-3 mb-5 border-bottom"><a href="/pragmatic-regex-web" class="d-flex align-items-center text-dark text-decoration-none"><h1>Try it out!</h1></a></header>
+    <header class="d-flex align-items-center pb-3 mb-5 border-bottom"><a href="/pragmatic-regex-web" class="d-flex align-items-center text-dark text-decoration-none"><h1>Quiz!</h1></a></header>
 
-    <p>Here, you have a regular expression, and a space to enter an example. Each example is a string, and its corresponding label. The string is a sequence of characters (entered in the text box), and the label is binary value that indicates whether the string is a positive example (belonging to the regular language specified by the regular expression, indicated with <button class="btn btn-primary"><i class="fa-solid fa-plus"></i></button>), or a negative example (not belonging to the regular language specified by the expression, indicated with <button class="btn btn-danger"><i class="fa-solid fa-minus"></i></button>). An incomplete example is indicated by the <span style="font-size: 1.5em; color: grey;"><i class="fa-solid fa-square-pen"></i></span> icon. A <b>consistent</b> example (where the label is correct for that string) is indicated with the <span style="font-size: 1.5em; color: green;"><i class="fa-solid fa-square-check"></i></span> icon. An <b>inconsistent</b> example (where the label is incorrect for that string) is indicated with the <span style="font-size: 1.5em; color: red;"><i class="fa-solid fa-square-xmark"></i></span> icon. You will only need to provide consistent examples in the task you perform.
-    </p>
+    <p>Here, you have a regular expression, and a space to enter an example. Each example is a string, and its corresponding label. The string is entered in the text box, and the label is binary value indicated using the appropriate button. To proceed to the next stage, create a specification that has <b>at least 3</b> examples with the <button class="btn btn-sm btn-primary"><i class="fa-solid fa-plus"></i></button> label and <b>at least 3</b> examples with the <button class="btn btn-sm btn-danger"><i class="fa-solid fa-minus"></i></button> label. You can create a specification by entering one example at a time.
+        
+        </p>
 
-    <p>Use the refresh button (<i class="fa-solid fa-arrows-rotate"></i>) to load a different regular expression. You can also <button class="btn btn-outline-dark">Clear</button> the example.
-    </p>
+    <div class="col-lg-10 py-md-3"><h2>Regex: <tt></tt></h2></div>
 
-    <div class="col-lg-14 py-md-3"><div class="row gx-1"><div class="col"><h3>Regex: <tt></tt></h3></div>
-            <div class="col"><button class="btn btn-outline-dark"><i class="fa-solid fa-arrows-rotate"></i></button>
-                <button class="btn btn-outline-dark">Clear
-                </button></div></div></div>
-    
     <div class="row gx-1"><div class="input-group col"><span class="input-group-text">Enter example</span>
             <input type="text" class="form-control" value="">
             <input type="radio" class="btn-check" name="utterance-type" value="+" id="positive" autocomplete="off">
             <label class="btn btn-outline-primary" for="positive"><i class="fa-solid fa-plus"></i></label>
             <input type="radio" class="btn-check" name="utterance-type" value="-" id="negative" autocomplete="off">
             <label class="btn btn-outline-danger" for="negative"><i class="fa-solid fa-minus"></i></label></div>
+        <div class="col"><button type="submit" class="btn btn-primary col-auto">Add</button></div></div>
 
-        <div class="col px-2"><span style="font-size: 1.5em; color: grey;"><i class="fa-solid fa-square-pen"></i></span></div></div>
+    <div class="col-lg-6 py-md-5"><ul class="list-group"></ul></div>
 
-    <div class="row-gx-1 py-5 float-right"><button class="btn btn-primary">Proceed to task</button></div></div>
+    
+
+    
+
+    </div>
 
 
-		<script type="module" data-sveltekit-hydrate="1tklcv7">
-			import { start } from "/pragmatic-regex-web/_app/immutable/start-e5c54470.js";
+		<script type="module" data-sveltekit-hydrate="1lk04zw">
+			import { start } from "/pragmatic-regex-web/_app/immutable/start-8d205150.js";
 
 			start({
 				env: {},
 				hydrate: {
 					status: 200,
 					error: null,
-					node_ids: [0, 2, 11],
+					node_ids: [0, 2, 12],
 					params: {},
 					route: {"id":"/annotate/tutorial"},
 					data: [null,null,null],
 					form: null
 				},
 				paths: {"base":"/pragmatic-regex-web","assets":"/pragmatic-regex-web"},
-				target: document.querySelector('[data-sveltekit-hydrate="1tklcv7"]').parentNode,
-				version: "1678809927800"
+				target: document.querySelector('[data-sveltekit-hydrate="1lk04zw"]').parentNode,
+				version: "1679082860189"
 			});
 		</script>
 	</div>

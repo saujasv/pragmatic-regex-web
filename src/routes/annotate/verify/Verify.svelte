@@ -4,11 +4,11 @@
     import { goto } from '$app/navigation';
     import { SvelteToast, toast } from '@zerodevx/svelte-toast';
     import { base } from '$app/paths';
+    import { dev } from '$app/environment';
 
-    let N_OPTIONS_CONTEXT = 0;
+    let USER_COMPLETED = 0;
     let MAX_VERIFICATION = 2;
     let N_QUESTIONS = 2;
-    let answered_idx = [];
     let N = 0;
 
     function getRandomInt(min, max) {
@@ -19,6 +19,11 @@
 
 
     async function loadTasks() {
+        if (dev) {
+            user.set("dev");
+            MAX_VERIFICATION = 1000;
+            N_QUESTIONS = 1000;
+        }
         if ($user.length == 0) {
             goto(`${base}/annotate/login`)
         }
@@ -51,6 +56,8 @@
         if (Object.keys(candidates).length == 0) {
             goto(`${base}/annotate/examples`);
         }
+
+        USER_COMPLETED = Object.keys(completed).length
 
         let j = getRandomInt(0, Object.keys(candidates).length);
         console.log(j);
@@ -114,17 +121,33 @@
         </a>
     </header> -->
 
+    <div class="col-lg-10 pt-md-1 pb-md-1 text-center">
+        <h4>Completed {USER_COMPLETED} of {N_QUESTIONS} tasks in this phase</h4>
+    </div>
+
+    <div class="col-lg-10 pt-md-1 pb-md-1 text-center">
+        <h2>You are now the guesser</h2>
+    </div>
+
     <div class="col-lg-10 pt-md-1 pb-md-1">
-        You are given a list of examples of strings. The strings in <button class="btn btn-mini btn-primary">blue</button> are positive examples and those in <button class="btn btn-mini btn-danger">red</button> are negative examples. You are also given options of regular expressions. You need to choose which regular expression best fits the given set of examples. If there are multiple consistent regular expressions, choose the one you think a person who provided these examples was most likely to refer to.
+        You are given a list of examples provided by a describer. You are also given options of regular expressions. You need to choose which regular expression best fits the given set of examples. If there are multiple correct regular expressions, choose the one you think the describer was most likely trying to communicate about.
     </div>
 
     {#key N}
-    <div class="list-group col-lg-10 py-md-3">
+    <div class="col-lg-10 py-md-3">
         {#each question.examples as ex}
             {#if ex.label == "+"}
-                <li class="list-group-item list-group-item-primary">{ex.string}</li>
+            <div class="list-group list-group-horizontal py-md-1">
+                <li class="list-group-item list-group-item flex-fill">{ex.string}</li>
+                <li class="list-group-item list-group-item-primary"><i class="fa-solid fa-plus"></i></li>
+                <li class="list-group-item list-group-item"><i class="fa-solid fa-minus"></i></li>
+            </div>
             {:else if ex.label == "-"}
-                <li class="list-group-item list-group-item-danger">{ex.string}</li>
+            <div class="list-group list-group-horizontal py-md-1">
+                <li class="list-group-item list-group-item flex-fill">{ex.string}</li>
+                <li class="list-group-item list-group-item"><i class="fa-solid fa-plus"></i></li>
+                <li class="list-group-item list-group-item-danger"><i class="fa-solid fa-minus"></i></li>
+            </div>
             {/if}
         {/each}
     </div>

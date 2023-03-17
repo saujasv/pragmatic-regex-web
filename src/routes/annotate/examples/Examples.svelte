@@ -4,6 +4,7 @@
     import { onMount } from "svelte";
     import { base } from '$app/paths';
     import { SvelteToast, toast } from '@zerodevx/svelte-toast';
+    import { dev } from '$app/environment';
 
     function getRandomInt(min, max) {
         min = Math.ceil(min);
@@ -17,6 +18,7 @@
 
     let MAX_ANNOTATION = 1;
     let MAX_PROGRAMS = 3;
+    let USER_COMPLETED = 0;
 
     let regex = "";
     let progid = "";
@@ -80,7 +82,12 @@
     }
 
     async function loadRegex() {
-        if ($user.length == 0) {
+        if (dev) {
+            user.set("dev");
+            MAX_ANNOTATION = 1000;
+            MAX_PROGRAMS = 1000;
+        }
+        else if ($user.length == 0) {
             goto(`${base}/annotate/login`)
         }
 
@@ -111,6 +118,8 @@
             goto(`${base}/annotate/finish`);
         }
 
+        USER_COMPLETED = Object.keys(completed).length;
+
         let j = getRandomInt(0, Object.keys(candidates).length);
         console.log(j);
         let i = 0
@@ -130,8 +139,17 @@
 </script>
 
 <div class="col-lg-10 mx-auto p-3 py-md-5">
+
+    <div class="col-lg-10 pt-md-1 pb-md-1 text-center">
+        <h4>Completed {USER_COMPLETED} of {MAX_PROGRAMS} tasks in this phase</h4>
+    </div>
+
+    <div class="col-lg-10 pt-md-1 pb-md-1 text-center">
+        <h2>You are now the describer</h2>
+    </div>
+
     <p>
-        Here, you are presented with a regular expression. You need to provide a set of examples that <em>describes</em> this regular expression to another person. In the context of this task, a good description is a set of examples that you might provide if you were asking for help on a forum such as StackOverflow. A good set of examples will allow a helpful person to easily identify the program you intend (here, the program that you are given) without knowing the program beforehand.
+        Here, you are presented with a regular expression. You need to provide a set of examples that <em>describes</em> this regular expression to a guesser.
     </p>
 
     <div class="col-lg-10 py-md-3">
@@ -143,9 +161,9 @@
             <span class="input-group-text">Enter example</span>
             <input type="text" class="form-control" bind:value={current_utterance_string} >
             <input type="radio" class="btn-check" bind:group={current_utterance_label} name="utterance-type" value={"+"} id="positive" autocomplete="off">
-            <label class="btn btn-outline-primary" for="positive">+</label>
+            <label class="btn btn-outline-primary" for="positive"><i class="fa-solid fa-plus"></i></label>
             <input type="radio" class="btn-check" bind:group={current_utterance_label} name="utterance-type" value={"-"} id="negative" autocomplete="off">
-            <label class="btn btn-outline-danger" for="negative">-</label>
+            <label class="btn btn-outline-danger" for="negative"><i class="fa-solid fa-minus"></i></label>
         </div>
         <div class="col">
             <button type="submit" class="btn btn-primary col-auto" on:click={addUtterance}>Add</button>
@@ -156,9 +174,22 @@
         <ul class="list-group">
             {#each utterances as utt}
                 {#if utt.label == "+"}
-                    <li class="list-group-item list-group-item-primary">{utt.string}<button class="btn btn-default btn-sm float-end" on:click={() => removeUtterance(utt.id)} ><i class="fa fa-times" /></button></li>
+                <div class="list-group list-group-horizontal py-md-1">
+                    <li class="list-group-item list-group-item flex-fill">{utt.string}</li>
+                    <li class="list-group-item list-group-item-primary"><i class="fa-solid fa-plus"></i></li>
+                    <li class="list-group-item list-group-item"><i class="fa-solid fa-minus"></i></li>
+                    <li class="list-group-item list-group-item"><button class="btn btn-default btn-sm px-0 py-0" on:click={() => removeUtterance(utt.id)} ><i class="fa fa-times" /></button></li>
+                </div>
+                    <!-- <li class="list-group-item list-group-item-primary">{utt.string}<button class="btn btn-default btn-sm float-end" on:click={() => removeUtterance(utt.id)} ><i class="fa fa-times" /></button></li> -->
                 {:else if utt.label == "-"}
-                    <li class="list-group-item list-group-item-danger">{utt.string}<button class="btn btn-default btn-sm float-end" on:click={() => removeUtterance(utt.id)} ><i class="fa fa-times" /></button></li>
+                    <div class="list-group list-group-horizontal py-md-1">
+                        <li class="list-group-item list-group-item flex-fill">{utt.string}</li>
+                        <li class="list-group-item list-group-item"><i class="fa-solid fa-plus"></i></li>
+                        <li class="list-group-item list-group-item-danger"><i class="fa-solid fa-minus"></i></li>
+                        <li class="list-group-item list-group-item"><button class="btn btn-default btn-sm px-0 py-0" on:click={() => removeUtterance(utt.id)} ><i class="fa fa-times" /></button></li>
+                        
+                    </div>
+                    <!-- <li class="list-group-item list-group-item-danger">{utt.string}<button class="btn btn-default btn-sm float-end" on:click={() => removeUtterance(utt.id)} ><i class="fa fa-times" /></button></li> -->
                 {/if}
             {/each}
         </ul>
