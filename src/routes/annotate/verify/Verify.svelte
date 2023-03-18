@@ -155,13 +155,13 @@
     <div class="btn-group-vertical col-lg-10 py-md-3">
         {#each question.options as opt}
             <input type="radio" class="btn-check" name="utterance-type" value={opt.id} id="{opt.id}" autocomplete="off" bind:group={answer}>
-            {#if opt.ground_truth}
+            <!-- {#if opt.ground_truth}
                 <label class="btn btn-outline-primary" for="{opt.id}"><tt>{opt.regex}</tt></label>
             {:else if opt.sat}
                 <label class="btn btn-outline-success" for="{opt.id}"><tt>{opt.regex}</tt></label>
-            {:else}
+            {:else} -->
                 <label class="btn btn-outline-dark" for="{opt.id}"><tt>{opt.regex}</tt></label>
-            {/if}
+            <!-- {/if} -->
         {/each}
     </div>
 
