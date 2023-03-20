@@ -170,6 +170,11 @@
             </ul>
         </li>
         <li><tt>.</tt> represents the set of all single characters</li>
+        <li><tt>[^]</tt> is used to represent <em>negated</em> unions. That refers to all single characters except those listed.
+        <ul>
+            <li><tt>[^ad]</tt> refers to all single characters except <tt>a</tt> and <tt>d</tt></li>li
+            <li>The special notation for groups can be used here as well. <tt>[^a-z]</tt> refers to any single character except lowercase letters</li>
+        </ul>
     </ul>
 
     <p>

@@ -9,7 +9,7 @@
 		<meta http-equiv="content-security-policy" content="">
 		<link href="/pragmatic-regex-web/_app/immutable/assets/_layout-f9089e10.css" rel="stylesheet">
 		<link href="/pragmatic-regex-web/_app/immutable/assets/SvelteToast-42b1db04.css" rel="stylesheet">
-		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/start-75b5e438.js">
+		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/start-cf79d2eb.js">
 		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/chunks/index-0e9e634d.js">
 		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/chunks/singletons-69107a7c.js">
 		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/chunks/index-5371d31d.js">
@@ -18,7 +18,7 @@
 		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/chunks/_layout-da46b06b.js">
 		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/components/pages/annotate/_layout.svelte-7ca0e678.js">
 		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/chunks/store-cf389518.js">
-		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/components/pages/annotate/tutorial/_page.svelte-2392ff59.js">
+		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/components/pages/annotate/tutorial/_page.svelte-399be0dc.js">
 		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/chunks/navigation-c15f7844.js">
 		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/chunks/stores-3e1ed05a.js">
 		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/modules/pages/annotate/tutorial/_page.js-1f4d7490.js">
@@ -104,7 +104,10 @@
         <li>The union of these sets can be descibed by writing both within <tt>[]</tt>
             <ul><li><tt>[a-zA-Z]</tt> represents the union of the sets descibed by <tt>[a-z]</tt> and <tt>[A-Z]</tt></li>
                 <li><tt>[a-z0-9]</tt> represents the union of the sets descibed by <tt>[a-z]</tt> and <tt>[0-9]</tt></li></ul></li>
-        <li><tt>.</tt> represents the set of all single characters</li></ul>
+        <li><tt>.</tt> represents the set of all single characters</li>
+        <li><tt>[^]</tt> is used to represent <em>negated</em> unions. That refers to all single characters except those listed.
+        <ul><li><tt>[^ad]</tt> refers to all single characters except <tt>a</tt> and <tt>d</tt></li>li
+            <li>The special notation for groups can be used here as well. <tt>[^a-z]</tt> refers to any single character except lowercase letters</li></ul></li></ul>
 
     <p>So far we have seen examples of regular expressions that match single-character strings. Regular expressions matching multi-character strings can be formed using the <em>concatenation</em> operation, which involves writing the two regular expressions in order. Here, if we have two regular expressions <em><tt>A</tt></em> and <em><tt>B</tt></em>, <tt>(<em>A</em>)(<em>B</em>)</tt> represets their concatenation. We can also concatenate more than two regular expressions like in <tt>(<em>A</em>)(<em>B</em>)(<em>C</em>)</tt>. Note that <em><tt>A</tt></em>, <em><tt>B</tt></em>, <em><tt>C</tt></em>, etc. (in italicized font) can be any regular expressions, including the simple ones described above, and the more complex ones described below.
     </p>
@@ -167,8 +170,8 @@
     </div>
 
 
-		<script type="module" data-sveltekit-hydrate="1lk04zw">
-			import { start } from "/pragmatic-regex-web/_app/immutable/start-75b5e438.js";
+		<script type="module" data-sveltekit-hydrate="1aef8bu">
+			import { start } from "/pragmatic-regex-web/_app/immutable/start-cf79d2eb.js";
 
 			start({
 				env: {},
@@ -182,8 +185,8 @@
 					form: null
 				},
 				paths: {"base":"/pragmatic-regex-web","assets":"/pragmatic-regex-web"},
-				target: document.querySelector('[data-sveltekit-hydrate="1lk04zw"]').parentNode,
-				version: "1679155040635"
+				target: document.querySelector('[data-sveltekit-hydrate="1aef8bu"]').parentNode,
+				version: "1679319232615"
 			});
 		</script>
 	</div>

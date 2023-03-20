@@ -33,19 +33,7 @@
     function addUtterance() {
         events_log = [...events_log, {"string": current_utterance_string, "label": current_utterance_label, "id": id}]
         if (current_utterance_string.length > 0) {
-            if (current_utterance_label == "+" && current_utterance_string.match(`^${regex}$`)) {
-                utterances = [...utterances, {"string": current_utterance_string, "label": current_utterance_label, "id": id}];
-                current_utterance_string = "";
-                current_utterance_label = null;
-                id += 1;
-            }
-            else if (current_utterance_label == "-" && !current_utterance_string.match(`^${regex}$`)) {
-                utterances = [...utterances, {"string": current_utterance_string, "label": current_utterance_label, "id": id}];
-                current_utterance_string = "";
-                current_utterance_label = null;
-                id += 1;
-            }
-            else {
+            if (current_utterance_label === null) {
                 toast.push("Label not provided", { 
                     theme: {
                         '--toastBarHeight': 0,
@@ -53,7 +41,41 @@
                     }
                 });
                 return;
+            }
+            else {
+                for (var u of utterances) {
+                    if (current_utterance_string == u["string"]) {
+                        toast.push("This example has already been provided", { 
+                            theme: {
+                                '--toastBarHeight': 0,
+                                '--toastBackground': 'red'
+                            }
+                        });
+                        return;
+                    }
                 }
+                if (current_utterance_label == "+" && current_utterance_string.match(`^${regex}$`)) {
+                    utterances = [...utterances, {"string": current_utterance_string, "label": current_utterance_label, "id": id}];
+                    current_utterance_string = "";
+                    current_utterance_label = null;
+                    id += 1;
+                }
+                else if (current_utterance_label == "-" && !current_utterance_string.match(`^${regex}$`)) {
+                    utterances = [...utterances, {"string": current_utterance_string, "label": current_utterance_label, "id": id}];
+                    current_utterance_string = "";
+                    current_utterance_label = null;
+                    id += 1;
+                }
+                else {
+                    toast.push("Label does not match string", { 
+                        theme: {
+                            '--toastBarHeight': 0,
+                            '--toastBackground': 'red'
+                        }
+                    });
+                    return;
+                }
+            }
         }
         else {
             toast.push("Please enter a valid string", { 
@@ -149,7 +171,7 @@
     </div>
 
     <p>
-        Here, you are presented with a regular expression. You need to provide a set of examples that <em>describes</em> this regular expression to a guesser.
+        Here, you are presented with a regular expression. You need to provide a set of examples that <em>describes</em> this regular expression to a guesser. Enter at least 5 examples.
     </p>
 
     <div class="col-lg-10 py-md-3">
@@ -195,10 +217,11 @@
         </ul>
     </div>
 
-    <div class="col-lg-6 py-md-5">
-        <button class="btn btn-success btn-lg float-end" on:click={submitUtterances}>Submit</button>
-    </div>
-
+    {#if utterances.length >= 5}
+        <div class="col-lg-6 py-md-5">
+            <button class="btn btn-success btn-lg float-end" on:click={submitUtterances}>Submit</button>
+        </div>
+    {/if}
     <SvelteToast />
 </div>
   

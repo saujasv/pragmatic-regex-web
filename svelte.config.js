@@ -27,5 +27,6 @@ export default {
 		domain: '',
 		jekyll: false
 	  }),
-	}
+	},
+	dev: dev
   };
