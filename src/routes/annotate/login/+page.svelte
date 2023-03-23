@@ -30,7 +30,7 @@
 
 <div class="col-lg-6 mx-auto p-3 pt-md-5 pb-md-3 text-center">
 	<p>
-	To track your responses and identify them as coming from the same person, you will submit your responses under a username. To generate the username, visit this <a href="https://www.uuidgenerator.net/version4">UUID generator</a> and generate a Version 4 UUID. You can copy the generated string and paste it into the box below.
+	To track your responses and identify them as coming from the same person, you will submit your responses under a username. To generate the username, visit this <a target="_blank" rel="noopener noreferrer" href="https://www.uuidgenerator.net/version4">UUID generator</a> and generate a Version 4 UUID. You can copy the generated string and paste it into the box below.
 	</p>
 
 	<p>

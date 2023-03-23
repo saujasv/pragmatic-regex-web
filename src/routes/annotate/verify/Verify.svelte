@@ -8,7 +8,7 @@
 
     let USER_COMPLETED = 0;
     let MAX_VERIFICATION = 2;
-    let N_QUESTIONS = 2;
+    let N_QUESTIONS = 5;
     let N = 0;
 
     function getRandomInt(min, max) {
@@ -21,8 +21,8 @@
     async function loadTasks() {
         if (dev) {
             user.set("dev");
-            MAX_VERIFICATION = 1000;
-            N_QUESTIONS = 1000;
+            MAX_VERIFICATION = 10;
+            N_QUESTIONS = 10;
         }
         if ($user.length == 0) {
             goto(`${base}/annotate/login`)

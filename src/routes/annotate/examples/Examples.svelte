@@ -17,7 +17,7 @@
     let events_log = [];
 
     let MAX_ANNOTATION = 1;
-    let MAX_PROGRAMS = 3;
+    let MAX_PROGRAMS = 5;
     let USER_COMPLETED = 0;
 
     let regex = "";
