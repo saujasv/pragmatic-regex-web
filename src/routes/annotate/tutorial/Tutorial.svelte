@@ -5,7 +5,6 @@
     import { onMount } from "svelte";
     import { dev } from '$app/environment';
     import { SvelteToast, toast } from '@zerodevx/svelte-toast';
-	import Guide from '../Guide.svelte';
 
     let regex = "";
     let progid = "";
@@ -218,6 +217,18 @@
             <tt>(<em>A</em>)+</tt> is the case of <tt><em>n</em> = 1</tt> and <tt><em>m</em></tt> is unbounded. 
             <ul>
                 <li><tt>([a-z],)?</tt> represents the between one or more occurences of a lowercase letter followed by a comma.<tt>"a,"</tt> and <tt>"a,b,b,"</tt> belong to this set, while <tt>"a,b"</tt> and <tt>""</tt> do not.</li>
+            </ul>
+        </li>
+        <li>
+            <tt>(<em>A</em>)&lbrace;<em>n</em>&rbrace;</tt> is the case where there are exactly <em>n</em> repetitions of <em>A</em>. 
+            <ul>
+                <li><tt>([a-z],){2}</tt> represents the exactly 2 occurences of a lowercase letter followed by a comma.<tt>"a,b,"</tt> and <tt>"p,q,"</tt> belong to this set, while <tt>"a,b"</tt> and <tt>""</tt> do not.</li>
+            </ul>
+        </li>
+        <li>
+            <tt>(<em>A</em>)&lbrace;<em>n,</em>&rbrace;</tt> is the case where there are at least <em>n</em> repetitions of <em>A</em>. 
+            <ul>
+                <li><tt>([a-z],){3}</tt> represents the at least 3 occurences of a lowercase letter followed by a comma.<tt>"a,b,c,"</tt> and <tt>"p,q,r,s,t,"</tt> belong to this set, while <tt>"a,b,"</tt> and <tt>"a,b,c"</tt> do not.</li>
             </ul>
         </li>
     </ul>

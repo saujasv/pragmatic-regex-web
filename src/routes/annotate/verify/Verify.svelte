@@ -8,7 +8,7 @@
 
     let USER_COMPLETED = 0;
     let MAX_VERIFICATION = 2;
-    let N_QUESTIONS = 5;
+    let N_QUESTIONS = 40;
     let N = 0;
 
     function getRandomInt(min, max) {
@@ -21,14 +21,14 @@
     async function loadTasks() {
         if (dev) {
             user.set("dev");
-            MAX_VERIFICATION = 10;
-            N_QUESTIONS = 10;
+            MAX_VERIFICATION = 1;
+            N_QUESTIONS = 2;
         }
         if ($user.length == 0) {
             goto(`${base}/annotate/login`)
         }
 
-        let data = await fetch(`${db}/pilot-options.json`).then(response => response.json()).catch(error => {
+        let data = await fetch(`${db}/options.json`).then(response => response.json()).catch(error => {
             console.log(error);
             return [];
         });
@@ -95,19 +95,13 @@
         }
 
         console.log(question_id);
-        await fetch(`https://try-regex-default-rtdb.firebaseio.com/pilot-options/${question_id}/verifications/${$user}.json`, {
+        await fetch(`${db}/options/${question_id}/verifications/${$user}.json`, {
             method: "PUT",
             body: answer
         });
 
         N += 1;
-        // question_id = "";
-        // question = {
-        //     examples: [],
-        //     options: []
-        // };
-
-        // goto(`${base}/annotate/verify`);
+        
         loadTasks();
     }
 

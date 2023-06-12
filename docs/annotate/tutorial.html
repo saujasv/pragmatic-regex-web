@@ -9,20 +9,20 @@
 		<meta http-equiv="content-security-policy" content="">
 		<link href="/pragmatic-regex-web/_app/immutable/assets/_layout-f9089e10.css" rel="stylesheet">
 		<link href="/pragmatic-regex-web/_app/immutable/assets/SvelteToast-42b1db04.css" rel="stylesheet">
-		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/start-0b49e85e.js">
+		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/start-bb708556.js">
 		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/chunks/index-0e9e634d.js">
 		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/chunks/singletons-69107a7c.js">
 		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/chunks/index-5371d31d.js">
 		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/components/layout.svelte-a9589a61.js">
 		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/modules/pages/_layout.js-9cbb603b.js">
 		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/chunks/_layout-da46b06b.js">
-		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/components/pages/annotate/_layout.svelte-7ca0e678.js">
-		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/chunks/store-cf389518.js">
-		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/components/pages/annotate/tutorial/_page.svelte-399be0dc.js">
+		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/components/pages/annotate/_layout.svelte-7b6a7799.js">
+		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/chunks/store-4445c58a.js">
+		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/components/pages/annotate/tutorial/_page.svelte-cb7eda5b.js">
 		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/chunks/navigation-c15f7844.js">
 		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/chunks/stores-3e1ed05a.js">
 		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/modules/pages/annotate/tutorial/_page.js-1f4d7490.js">
-		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/chunks/_page-c0e673fa.js"><title>Regex from Examples</title><!-- HEAD_svelte-tap1z9_START --><meta name="description" content="Regular expressions from examples"><!-- HEAD_svelte-tap1z9_END -->
+		<link rel="modulepreload" href="/pragmatic-regex-web/_app/immutable/chunks/_page-ac8b15c9.js"><title>Regex from Examples</title><!-- HEAD_svelte-tap1z9_START --><meta name="description" content="Regular expressions from examples"><!-- HEAD_svelte-tap1z9_END -->
 	</head>
 	<body data-sveltekit-prefetch>
 		<div style="display: contents">
@@ -128,7 +128,11 @@
         <li><tt>(<em>A</em>)*</tt> is the case of <tt><em>n</em> = 0</tt> and <tt><em>m</em></tt> is unbounded. 
             <ul><li><tt>([a-z],)?</tt> represents the between zero or more occurences of a lowercase letter followed by a comma. The empty string <tt>&quot;&quot;</tt> and <tt>&quot;a,b,b,&quot;</tt> belong to this set, while <tt>&quot;a,b&quot;</tt> and <tt>&quot;a,b,p&quot;</tt> do not.</li></ul></li>
         <li><tt>(<em>A</em>)+</tt> is the case of <tt><em>n</em> = 1</tt> and <tt><em>m</em></tt> is unbounded. 
-            <ul><li><tt>([a-z],)?</tt> represents the between one or more occurences of a lowercase letter followed by a comma.<tt>&quot;a,&quot;</tt> and <tt>&quot;a,b,b,&quot;</tt> belong to this set, while <tt>&quot;a,b&quot;</tt> and <tt>&quot;&quot;</tt> do not.</li></ul></li></ul>
+            <ul><li><tt>([a-z],)?</tt> represents the between one or more occurences of a lowercase letter followed by a comma.<tt>&quot;a,&quot;</tt> and <tt>&quot;a,b,b,&quot;</tt> belong to this set, while <tt>&quot;a,b&quot;</tt> and <tt>&quot;&quot;</tt> do not.</li></ul></li>
+        <li><tt>(<em>A</em>){<em>n</em>}</tt> is the case where there are exactly <em>n</em> repetitions of <em>A</em>. 
+            <ul><li><tt>([a-z],)2</tt> represents the exactly 2 occurences of a lowercase letter followed by a comma.<tt>&quot;a,b,&quot;</tt> and <tt>&quot;p,q,&quot;</tt> belong to this set, while <tt>&quot;a,b&quot;</tt> and <tt>&quot;&quot;</tt> do not.</li></ul></li>
+        <li><tt>(<em>A</em>){<em>n,</em>}</tt> is the case where there are at least <em>n</em> repetitions of <em>A</em>. 
+            <ul><li><tt>([a-z],)3</tt> represents the at least 3 occurences of a lowercase letter followed by a comma.<tt>&quot;a,b,c,&quot;</tt> and <tt>&quot;p,q,r,s,t,&quot;</tt> belong to this set, while <tt>&quot;a,b,&quot;</tt> and <tt>&quot;a,b,c&quot;</tt> do not.</li></ul></li></ul>
 
     <p>Sometimes, we want to our regular expressions to include characters used to represent operators or other symbols that have significance in the syntax for regexes. In this case, we use the <tt>\</tt> symbol to &quot;escape&quot; the following character – treat it as a character and not as an operator.
     </p>
@@ -170,8 +174,8 @@
     </div>
 
 
-		<script type="module" data-sveltekit-hydrate="1aef8bu">
-			import { start } from "/pragmatic-regex-web/_app/immutable/start-0b49e85e.js";
+		<script type="module" data-sveltekit-hydrate="12ecdj0">
+			import { start } from "/pragmatic-regex-web/_app/immutable/start-bb708556.js";
 
 			start({
 				env: {},
@@ -185,8 +189,8 @@
 					form: null
 				},
 				paths: {"base":"/pragmatic-regex-web","assets":"/pragmatic-regex-web"},
-				target: document.querySelector('[data-sveltekit-hydrate="1aef8bu"]').parentNode,
-				version: "1679595718896"
+				target: document.querySelector('[data-sveltekit-hydrate="12ecdj0"]').parentNode,
+				version: "1686601253312"
 			});
 		</script>
 	</div>

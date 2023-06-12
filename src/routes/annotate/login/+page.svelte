@@ -3,7 +3,6 @@
 	import { goto } from '$app/navigation';
 	import { SvelteToast, toast } from '@zerodevx/svelte-toast';
 	import { base } from '$app/paths';
-	import { dev } from '$app/environment';
 
 	let username = "";
 	function submitUsername() {
@@ -34,7 +33,7 @@
 	</p>
 
 	<p>
-	<b>In addition to entering your username here, please note it down in a place where you can refer to it later.</b> If you have technical issues, the username will allow you to pick up where you left off. We only tie your responses to your username, but we do not have a way to match your username to you (since it is a randomly generated string). We will not be able to tell you what your username is.
+	<b>In addition to entering your username here, please note it down in a place where you can refer to it later.</b> If you would like to do the task across multiple sittings or have technical issues, the username will allow you to pick up where you left off. We only tie your responses to your username, but we do not have a way to match your username to you (since it is a randomly generated string). We will not be able to tell you what your username is.
 	</p>
 </div>
 

@@ -1,10 +1,11 @@
 <script>
     import { goto } from '$app/navigation';
-    import { user } from '$lib/store.js';
+    import { user, db } from '$lib/store.js';
     import { onMount } from "svelte";
     import { base } from '$app/paths';
     import { SvelteToast, toast } from '@zerodevx/svelte-toast';
     import { dev } from '$app/environment';
+	import { get } from 'svelte/store';
 
     function getRandomInt(min, max) {
         min = Math.ceil(min);
@@ -17,7 +18,7 @@
     let events_log = [];
 
     let MAX_ANNOTATION = 1;
-    let MAX_PROGRAMS = 5;
+    let MAX_PROGRAMS = 40;
     let USER_COMPLETED = 0;
 
     let regex = "";
@@ -29,6 +30,8 @@
     let utterances = [];
 
     let id = 0;
+
+    let min_utterances = getRandomInt(5, 7);
 
     function addUtterance() {
         events_log = [...events_log, {"string": current_utterance_string, "label": current_utterance_label, "id": id}]
@@ -93,10 +96,25 @@
     }
 
     async function submitUtterances() {
+        if (utterances.length < min_utterances) {
+            toast.push("Please provide more examples", { 
+                        theme: {
+                            '--toastBarHeight': 0,
+                            '--toastBackground': 'red'
+                        }
+                    });
+            return;
+        }
+
         console.log(progid);
-        await fetch(`https://try-regex-default-rtdb.firebaseio.com/heldout-describe-pilot/${progid}/descriptions/${$user}.json`, {
+        await fetch(`${db}/describe-programs/${progid}/descriptions/${$user}.json`, {
             method: "PUT",
             body: JSON.stringify(utterances)
+        })
+
+        await fetch(`${db}/event-logs/${progid}/${$user}.json`, {
+            method: "PUT",
+            body: JSON.stringify(events_log)
         })
         utterances = [];
 
@@ -106,14 +124,14 @@
     async function loadRegex() {
         if (dev) {
             user.set("dev");
-            MAX_ANNOTATION = 1000;
-            MAX_PROGRAMS = 1000;
+            MAX_ANNOTATION = 1;
+            MAX_PROGRAMS = 3;
         }
         else if ($user.length == 0) {
             goto(`${base}/annotate/login`)
         }
 
-        let data = await fetch("https://try-regex-default-rtdb.firebaseio.com/heldout-describe-pilot.json")
+        let data = await fetch(`${db}/describe-programs.json`)
         .then(response => response.json());
 
         let completed = new Object();
@@ -123,7 +141,7 @@
                 if (data[x]["descriptions"].hasOwnProperty($user)) {
                     completed[x] = data[x];
                 }
-                if (Object.keys(data[x]["descriptions"]).length < MAX_ANNOTATION) {
+                else if (Object.keys(data[x]["descriptions"]).length < MAX_ANNOTATION) {
                     candidates[x] = data[x];
                 }
             }
@@ -132,7 +150,7 @@
             }
         }
 
-        if (Object.keys(completed).length > MAX_PROGRAMS) {
+        if (Object.keys(completed).length >= MAX_PROGRAMS) {
             goto(`${base}/annotate/finish`)
         }
 
@@ -171,7 +189,7 @@
     </div>
 
     <p>
-        Here, you are presented with a regular expression. You need to provide a set of examples that <em>describes</em> this regular expression to a guesser. Enter at least 5 examples.
+        Here, you are presented with a regular expression. You need to provide a set of examples that <em>describes</em> this regular expression to a guesser. Enter at least {min_utterances} examples.
     </p>
 
     <div class="col-lg-10 py-md-3">
@@ -217,7 +235,7 @@
         </ul>
     </div>
 
-    {#if utterances.length >= 5}
+    {#if utterances.length >= min_utterances}
         <div class="col-lg-6 py-md-5">
             <button class="btn btn-success btn-lg float-end" on:click={submitUtterances}>Submit</button>
         </div>
