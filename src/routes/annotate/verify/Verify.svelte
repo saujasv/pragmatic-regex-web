@@ -40,7 +40,7 @@
                 if (data[x]["verifications"].hasOwnProperty($user)) {
                     completed[x] = data[x];
                 }
-                if (Object.keys(data[x]["verifications"]).length < MAX_VERIFICATION) {
+                else if (Object.keys(data[x]["verifications"]).length < MAX_VERIFICATION) {
                     candidates[x] = data[x];
                 }
             }
