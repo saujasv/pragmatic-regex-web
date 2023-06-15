@@ -7,7 +7,7 @@
     import { dev } from '$app/environment';
 
     let USER_COMPLETED = 0;
-    let MAX_VERIFICATION = 2;
+    let MAX_VERIFICATION = 10;
     let N_QUESTIONS = 40;
     let N = 0;
 
