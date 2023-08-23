@@ -132,7 +132,12 @@
     </p>
 
     <p>
-        In this task, you will assume the role of either the describer or the guesser, depending on the phase of the task. As a describer, you may only use examples to communicate a regular expression you are given. These examples will be shown to another person who will assume the role of the guesser, and try to identify the regular expression the the describer was trying to communicate. When you are a describer, try to provide examples that you think will be most helpful to a guesser.
+        In this task, you will assume the role of 
+        <!-- either the describer or  -->
+        the guesser.
+        <!-- , depending on the phase of the task.  -->
+        <!-- As a describer, you may only use examples to communicate a regular expression you are given. These examples will be shown to another person who will assume the role of the guesser, and try to identify the regular expression the the describer was trying to communicate. When you are a describer, try to provide examples that you think will be most helpful to a guesser. -->
+        As a guesser, you will try to identify the regular expression the the describer was trying to communicate.
     </p>
 
     <div class="row-gx-1 py-5 float-right">

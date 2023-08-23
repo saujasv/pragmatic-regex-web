@@ -8,7 +8,7 @@
 
     let USER_COMPLETED = 0;
     let MAX_VERIFICATION = 2;
-    let N_QUESTIONS = 40;
+    let N_QUESTIONS = 80;
     let N = 0;
 
     function getRandomInt(min, max) {
@@ -49,12 +49,19 @@
             }
         }
 
+        // if (Object.keys(completed).length >= N_QUESTIONS) {
+        //     goto(`${base}/annotate/examples`);
+        // }
+
+        // if (Object.keys(candidates).length == 0) {
+        //     goto(`${base}/annotate/examples`);
+        // }
         if (Object.keys(completed).length >= N_QUESTIONS) {
-            goto(`${base}/annotate/examples`);
+            goto(`${base}/annotate/finish`);
         }
 
         if (Object.keys(candidates).length == 0) {
-            goto(`${base}/annotate/examples`);
+            goto(`${base}/annotate/finish`);
         }
 
         USER_COMPLETED = Object.keys(completed).length
@@ -115,8 +122,11 @@
         </a>
     </header> -->
 
-    <div class="col-lg-10 pt-md-1 pb-md-1 text-center">
+    <!-- <div class="col-lg-10 pt-md-1 pb-md-1 text-center">
         <h4>Completed {USER_COMPLETED} of {N_QUESTIONS} tasks in this phase</h4>
+    </div> -->
+    <div class="col-lg-10 pt-md-1 pb-md-1 text-center">
+        <h4>Completed {USER_COMPLETED} of {N_QUESTIONS} tasks</h4>
     </div>
 
     <div class="col-lg-10 pt-md-1 pb-md-1 text-center">
