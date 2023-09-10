@@ -95,7 +95,7 @@
 
     async function synthesize() {
         if (USER_COMPLETED % 3 == 0) {
-            await fetch(`https://r6fve43vkbl7ddj4.us-east-1.aws.endpoints.huggingface.cloud`, {
+            let answer = await fetch(`https://r6fve43vkbl7ddj4.us-east-1.aws.endpoints.huggingface.cloud`, {
                 method: "POST",
                 headers: {
                 "Content-Type": "application/json",
@@ -135,7 +135,7 @@
             }
         }
         else {
-            await fetch(`https://fk6zpavogt2hxcyr.us-east-1.aws.endpoints.huggingface.cloud`, {
+            let answer = await fetch(`https://fk6zpavogt2hxcyr.us-east-1.aws.endpoints.huggingface.cloud`, {
                 method: "POST",
                 headers: {
                 "Content-Type": "application/json",
