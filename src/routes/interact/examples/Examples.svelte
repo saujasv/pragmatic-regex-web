@@ -94,25 +94,68 @@
     }
 
     async function synthesize() {
-        let answer = await fetch(`http://babel.lti.cs.cmu.edu:8081/synthesize`, {
-            method: "POST",
-            headers: {
-            "Content-Type": "application/json",
-            "Upgrade-Insecure-Requests": 0
-            },
-            body: JSON.stringify({
-                "listener_idx": USER_COMPLETED % 3,
-                "true_program": regex,
-                "spec": utterances
-            })
-        }).then(response => response.json());
+        if (USER_COMPLETED % 3 == 0) {
+            await fetch(`https://r6fve43vkbl7ddj4.us-east-1.aws.endpoints.huggingface.cloud`, {
+                method: "POST",
+                headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer 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"
+                },
+                body: JSON.stringify({
+                    "inputs": {
+                    "true_program": regex,
+                    "spec": utterances
+                    }
+                })
+            }).then(response => response.json());
 
-        console.log(answer);
-
-        guess = answer["guess"];
-        if (answer["top_1_success"]) {
-            guess_correct = true;
+            guess = answer["guess"];
+            if (answer["top_1_success"]) {
+                guess_correct = true;
+            }
         }
+        else if (USER_COMPLETED % 3 == 1) {
+            let answer = await fetch(`https://qdkd8x0wqtlir789.us-east-1.aws.endpoints.huggingface.cloud`, {
+                method: "POST",
+                headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer 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"
+                },
+                body: JSON.stringify({
+                    "inputs": {
+                    "true_program": regex,
+                    "spec": utterances
+                    }
+                })
+            }).then(response => response.json());
+
+            guess = answer["guess"];
+            if (answer["top_1_success"]) {
+                guess_correct = true;
+            }
+        }
+        else {
+            await fetch(`https://fk6zpavogt2hxcyr.us-east-1.aws.endpoints.huggingface.cloud`, {
+                method: "POST",
+                headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer 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"
+                },
+                body: JSON.stringify({
+                    "inputs": {
+                    "true_program": regex,
+                    "spec": utterances
+                    }
+                })
+            }).then(response => response.json());
+
+            guess = answer["guess"];
+            if (answer["top_1_success"]) {
+                guess_correct = true;
+            }
+        }
+
+
     }
 
     function removeUtterance(id) {
