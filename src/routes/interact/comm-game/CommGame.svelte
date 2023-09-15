@@ -137,7 +137,7 @@
         <!-- the guesser. -->
         the describer.
         <!-- , depending on the phase of the task.  -->
-        As a describer, you may only use examples to communicate a regular expression you are given. These examples will be shown to a model that will will assume the role of the guesser, and try to identify the regular expression you were trying to communicate. When you are a describer, try to provide examples that you think will be most helpful to the guesser.
+        As a describer, you may only use examples to communicate a regular expression you are given. These examples will be shown to a model that will will assume the role of the guesser, and try to identify the regular expression you were trying to communicate. When you are a describer, try to provide examples that you think will be most helpful to the guesser. You will interact with <b>three</b> different guessers, and at the end of the task you will be asked to <b>answer questions</b> about the guessers that you interacted with.
         <!-- As a guesser, you will try to identify the regular expression the the describer was trying to communicate. -->
     </p>
 

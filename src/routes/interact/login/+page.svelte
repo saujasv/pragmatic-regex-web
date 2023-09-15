@@ -1,13 +1,33 @@
 <script>
-	import { user } from '$lib/store.js';
+	import { user, offset } from '$lib/store.js';
 	import { goto } from '$app/navigation';
 	import { SvelteToast, toast } from '@zerodevx/svelte-toast';
 	import { base } from '$app/paths';
 
+	function getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
+    }
+
 	let username = "";
-	function submitUsername() {
+	async function submitUsername() {
 		if (username.length > 0) {
 			user.set(username);
+			let data = await fetch(`https://regex-interact-default-rtdb.firebaseio.com/users/${$user}.json`).then(response => response.json());
+			if (data) {
+				console.log(`Data found for user`);
+				console.log(data);
+			}
+			else {
+				offset.set(getRandomInt(0, 3));
+				await fetch(`https://regex-interact-default-rtdb.firebaseio.com/users/${$user}.json`, {
+					method: "PUT",
+					body: JSON.stringify({
+						"offset": $offset
+					})
+				});
+			}
 			goto(`${base}/interact/tutorial`);
 		}
 		else {

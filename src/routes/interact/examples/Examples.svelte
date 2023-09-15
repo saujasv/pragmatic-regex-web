@@ -1,6 +1,6 @@
 <script>
     import { goto } from '$app/navigation';
-    import { user } from '$lib/store.js';
+    import { user, offset } from '$lib/store.js';
     import { onMount } from "svelte";
     import { base } from '$app/paths';
     import { SvelteToast, toast } from '@zerodevx/svelte-toast';
@@ -94,8 +94,9 @@
     }
 
     async function synthesize() {
-        if (USER_COMPLETED % 3 == 0) {
-            let answer = await fetch(`https://r6fve43vkbl7ddj4.us-east-1.aws.endpoints.huggingface.cloud`, {
+        if ((USER_COMPLETED + $offset) % 3 == 0) {
+            guess = ""
+            let answer = await fetch(`https://sqv1rlpqi9lshx3r.us-east-1.aws.endpoints.huggingface.cloud`, {
                 method: "POST",
                 headers: {
                 "Content-Type": "application/json",
@@ -109,17 +110,28 @@
                 })
             }).then(response => response.json());
 
-            guess = answer["guess"];
-            if (answer["top_1_success"]) {
-                guess_correct = true;
+            if (answer) {
+                guess = answer["guess"];
+                if (answer["top_1_success"]) {
+                    guess_correct = true;
+                }
+
+                await fetch(`https://regex-interact-default-rtdb.firebaseio.com/user_study/${progid}/interaction/${$user}/${utterances.length}.json`, {
+                    method: "PUT",
+                    body: JSON.stringify({
+                        "listener_idx": (USER_COMPLETED + $offset) % 3,
+                        "response": answer
+                    })
+                })
             }
         }
-        else if (USER_COMPLETED % 3 == 1) {
-            let answer = await fetch(`https://qdkd8x0wqtlir789.us-east-1.aws.endpoints.huggingface.cloud`, {
+        else if ((USER_COMPLETED + $offset) % 3 == 1) {
+            guess = ""
+            let answer = await fetch(`https://c0vmrzlr7laeho8b.us-east-1.aws.endpoints.huggingface.cloud`, {
                 method: "POST",
                 headers: {
                 "Content-Type": "application/json",
-                "Authorization": "Bearer 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"
+                "Authorization": "Bearer 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"
                 },
                 body: JSON.stringify({
                     "inputs": {
@@ -129,13 +141,24 @@
                 })
             }).then(response => response.json());
 
-            guess = answer["guess"];
-            if (answer["top_1_success"]) {
-                guess_correct = true;
+            if (answer) {
+                guess = answer["guess"];
+                if (answer["top_1_success"]) {
+                    guess_correct = true;
+                }
+
+                await fetch(`https://regex-interact-default-rtdb.firebaseio.com/user_study/${progid}/interaction/${$user}/${utterances.length}.json`, {
+                    method: "PUT",
+                    body: JSON.stringify({
+                        "listener_idx": (USER_COMPLETED + $offset) % 3,
+                        "response": answer
+                    })
+                })
             }
         }
         else {
-            let answer = await fetch(`https://fk6zpavogt2hxcyr.us-east-1.aws.endpoints.huggingface.cloud`, {
+            guess = ""
+            let answer = await fetch(`https://fa096oepnph7ti6r.us-east-1.aws.endpoints.huggingface.cloud`, {
                 method: "POST",
                 headers: {
                 "Content-Type": "application/json",
@@ -149,9 +172,19 @@
                 })
             }).then(response => response.json());
 
-            guess = answer["guess"];
-            if (answer["top_1_success"]) {
-                guess_correct = true;
+            if (answer) {
+                guess = answer["guess"];
+                if (answer["top_1_success"]) {
+                    guess_correct = true;
+                }
+
+                await fetch(`https://regex-interact-default-rtdb.firebaseio.com/user_study/${progid}/interaction/${$user}/${utterances.length}.json`, {
+                    method: "PUT",
+                    body: JSON.stringify({
+                        "listener_idx": (USER_COMPLETED + $offset) % 3,
+                        "response": answer
+                    })
+                })
             }
         }
 
@@ -164,9 +197,13 @@
 
     async function submitUtterances() {
         console.log(progid);
-        await fetch(`https://regex-interact-default-rtdb.firebaseio.com/pilot/${progid}/interaction/${$user}.json`, {
+        await fetch(`https://regex-interact-default-rtdb.firebaseio.com/user_study/${progid}/interaction/${$user}/full_spec.json`, {
             method: "PUT",
             body: JSON.stringify(utterances)
+        })
+        await fetch(`https://regex-interact-default-rtdb.firebaseio.com/user_study/${progid}/interaction/${$user}/completed.json`, {
+            method: "PUT",
+            body: JSON.stringify(true)
         })
         utterances = [];
 
@@ -183,14 +220,21 @@
             goto(`${base}/interact/login`)
         }
 
-        let data = await fetch("https://regex-interact-default-rtdb.firebaseio.com/pilot.json")
+        let data = await fetch("https://regex-interact-default-rtdb.firebaseio.com/user_study.json")
         .then(response => response.json());
 
         let completed = new Object();
         let candidates = new Object();
         for (var x in data) {
             if (data[x].hasOwnProperty("interaction")) {
-                if (data[x]["interaction"].hasOwnProperty($user)) {
+                let completed_interaction = false;
+                if (data[x]["interaction"].hasOwnProperty("completed")) {
+                    if (data[x]["interaction"]["completed"]) {
+                        completed_interaction = true;
+                    }
+                }
+
+                if (data[x]["interaction"].hasOwnProperty($user) && !completed_interaction) {
                     completed[x] = data[x];
                 }
                 if (Object.keys(data[x]["interaction"]).length < MAX_ANNOTATION) {
@@ -221,10 +265,18 @@
                 regex = candidates[x]["program"];
                 console.log(x, candidates[x]);
                 console.log(progid, regex);
+                let created_record = await fetch(`https://regex-interact-default-rtdb.firebaseio.com/user_study/${progid}/interaction/${$user}/completed.json`, {
+                    method: "PUT",
+                    body: JSON.stringify(false)
+                }).then(response => response.json());
+                guess = "";
+                guess_correct = false;
                 return;
             }
             i += 1;
         }
+
+
     }
 
     onMount(loadRegex);
