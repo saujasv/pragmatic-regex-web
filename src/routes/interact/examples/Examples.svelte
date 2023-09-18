@@ -293,7 +293,7 @@
     </div>
 
     <p>
-        Here, you are presented with a regular expression. You need to interact with a system and communicate the regular expression. After each example is provided, a system that is playing the role of a guesser will guess which regular expression you might have been referring to. The game is completed when the system's guess matches the regular expression you were given, or when 10 examples have been provided.
+        Here, you are presented with a regular expression. You need to interact with a system and communicate the regular expression. After each example is provided, a system that is playing the role of a guesser will guess which regular expression you might have been referring to. The game is completed when the system's guess matches the regular expression you were given, or when 10 examples have been provided. If the system produces "null" as a guess, then the system failed to guess the regular expression. You can provide more examples, which might help the system, and if the system fails to guess the regular expression after 10 examples, you can submit the examples you provided and move on to the next task.
     </p>
 
     {#if USER_COMPLETED % 3 == 0}
