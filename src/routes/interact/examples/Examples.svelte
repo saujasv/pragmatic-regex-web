@@ -125,6 +125,7 @@
                     method: "PUT",
                     body: JSON.stringify({
                         "listener_idx": (USER_COMPLETED + $offset) % 3,
+                        "listener": "pragmatic",
                         "response": answer
                     })
                 })
@@ -161,6 +162,7 @@
                     method: "PUT",
                     body: JSON.stringify({
                         "listener_idx": (USER_COMPLETED + $offset) % 3,
+                        "listener": "literal",
                         "response": answer
                     })
                 })
@@ -197,6 +199,7 @@
                     method: "PUT",
                     body: JSON.stringify({
                         "listener_idx": (USER_COMPLETED + $offset) % 3,
+                        "listener": "hft",
                         "response": answer
                     })
                 })
@@ -249,7 +252,7 @@
                     }
                 }
 
-                if (data[x]["interaction"].hasOwnProperty($user) && !completed_interaction) {
+                if (data[x]["interaction"].hasOwnProperty($user) && completed_interaction) {
                     completed[x] = data[x];
                 }
                 if (Object.keys(data[x]["interaction"]).length < MAX_ANNOTATION) {
