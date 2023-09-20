@@ -246,8 +246,8 @@
         for (var x in data) {
             if (data[x].hasOwnProperty("interaction")) {
                 let completed_interaction = false;
-                if (data[x]["interaction"].hasOwnProperty("completed")) {
-                    if (data[x]["interaction"]["completed"]) {
+                if (data[x]["interaction"].hasOwnProperty($user) && data[x]["interaction"][$user].hasOwnProperty("completed")) {
+                    if (data[x]["interaction"][$user]["completed"]) {
                         completed_interaction = true;
                     }
                 }
@@ -273,6 +273,8 @@
         }
 
         USER_COMPLETED = Object.keys(completed).length;
+        console.log("COMPLETED")
+        console.log(USER_COMPLETED);
 
         let j = getRandomInt(0, Object.keys(candidates).length);
         console.log(j);
