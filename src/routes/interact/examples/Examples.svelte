@@ -95,7 +95,7 @@
 
     async function synthesize() {
         if ((USER_COMPLETED + $offset) % 3 == 0) {
-            guess = ""
+            guess = "..."
             let answer = await fetch(`https://sqv1rlpqi9lshx3r.us-east-1.aws.endpoints.huggingface.cloud`, {
                 method: "POST",
                 headers: {
@@ -132,7 +132,7 @@
             }
         }
         else if ((USER_COMPLETED + $offset) % 3 == 1) {
-            guess = ""
+            guess = "..."
             let answer = await fetch(`https://c0vmrzlr7laeho8b.us-east-1.aws.endpoints.huggingface.cloud`, {
                 method: "POST",
                 headers: {
@@ -169,7 +169,7 @@
             }
         }
         else {
-            guess = ""
+            guess = "..."
             let answer = await fetch(`https://fa096oepnph7ti6r.us-east-1.aws.endpoints.huggingface.cloud`, {
                 method: "POST",
                 headers: {
@@ -344,19 +344,23 @@
         </div>
     {/if}
 
-    <div class="row gx-1">
-        <div class="input-group col">
-            <span class="input-group-text">Enter example</span>
-            <input type="text" class="form-control" bind:value={current_utterance_string} >
-            <input type="radio" class="btn-check" bind:group={current_utterance_label} name="utterance-type" value={"+"} id="positive" autocomplete="off">
-            <label class="btn btn-outline-primary" for="positive"><i class="fa-solid fa-plus"></i></label>
-            <input type="radio" class="btn-check" bind:group={current_utterance_label} name="utterance-type" value={"-"} id="negative" autocomplete="off">
-            <label class="btn btn-outline-danger" for="negative"><i class="fa-solid fa-minus"></i></label>
+    {#if guess_correct}
+    <h2 style="color:green">Succeeded, scroll to the end and submit!</h2>
+    {:else}
+        <div class="row gx-1">
+            <div class="input-group col">
+                <span class="input-group-text">Enter example</span>
+                <input type="text" class="form-control" bind:value={current_utterance_string} >
+                <input type="radio" class="btn-check" bind:group={current_utterance_label} name="utterance-type" value={"+"} id="positive" autocomplete="off">
+                <label class="btn btn-outline-primary" for="positive"><i class="fa-solid fa-plus"></i></label>
+                <input type="radio" class="btn-check" bind:group={current_utterance_label} name="utterance-type" value={"-"} id="negative" autocomplete="off">
+                <label class="btn btn-outline-danger" for="negative"><i class="fa-solid fa-minus"></i></label>
+            </div>
+            <div class="col">
+                <button type="submit" class="btn btn-primary col-auto" on:click={addUtterance}>Add</button>
+            </div>
         </div>
-        <div class="col">
-            <button type="submit" class="btn btn-primary col-auto" on:click={addUtterance}>Add</button>
-        </div>
-    </div>
+    {/if}
 
     <div class="col-lg-6 py-md-5">
         <ul class="list-group">
