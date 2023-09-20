@@ -111,7 +111,12 @@
             }).then(response => response.json());
 
             if (answer) {
-                guess = answer["guess"];
+                if (answer["guess"]) {
+                    guess = answer["guess"];
+                }
+                else {
+                    guess = "<regex not found>";
+                }
                 if (answer["top_1_success"]) {
                     guess_correct = true;
                 }
@@ -142,7 +147,12 @@
             }).then(response => response.json());
 
             if (answer) {
-                guess = answer["guess"];
+                if (answer["guess"]) {
+                    guess = answer["guess"];
+                }
+                else {
+                    guess = "<regex not found>";
+                }
                 if (answer["top_1_success"]) {
                     guess_correct = true;
                 }
@@ -173,7 +183,12 @@
             }).then(response => response.json());
 
             if (answer) {
-                guess = answer["guess"];
+                if (answer["guess"]) {
+                    guess = answer["guess"];
+                }
+                else {
+                    guess = "<regex not found>";
+                }
                 if (answer["top_1_success"]) {
                     guess_correct = true;
                 }
