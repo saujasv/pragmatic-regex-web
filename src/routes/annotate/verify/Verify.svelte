@@ -8,7 +8,7 @@
 
     let USER_COMPLETED = 0;
     let MAX_VERIFICATION = 2;
-    let N_QUESTIONS = 80;
+    let N_QUESTIONS = 90;
     let N = 0;
 
     function getRandomInt(min, max) {
