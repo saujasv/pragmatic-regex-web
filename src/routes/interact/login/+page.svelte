@@ -20,7 +20,7 @@
 				console.log(data);
 			}
 			else {
-				offset.set(getRandomInt(0, 3));
+				offset.set(1); // hardcoding this for a bit/ getRandomInt(0, 3));
 				await fetch(`https://regex-interact-default-rtdb.firebaseio.com/users/${$user}.json`, {
 					method: "PUT",
 					body: JSON.stringify({
