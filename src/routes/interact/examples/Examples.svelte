@@ -100,7 +100,6 @@
                 method: "POST",
                 headers: {
                 "Content-Type": "application/json",
-                "Authorization": "Bearer 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"
                 },
                 body: JSON.stringify({
                     "inputs": {
@@ -137,7 +136,6 @@
                 method: "POST",
                 headers: {
                 "Content-Type": "application/json",
-                "Authorization": "Bearer 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"
                 },
                 body: JSON.stringify({
                     "inputs": {
@@ -174,7 +172,6 @@
                 method: "POST",
                 headers: {
                 "Content-Type": "application/json",
-                "Authorization": "Bearer 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"
                 },
                 body: JSON.stringify({
                     "inputs": {
