@@ -4,7 +4,7 @@
     import { base } from '$app/paths';
 
     function goToLogin() {
-        goto(`${base}/interact/login`);
+        goto(`${base}/demo`);
     }
 
     onMount(goToLogin);
