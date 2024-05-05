@@ -294,16 +294,15 @@
                     <li class="list-group-item list-group-item flex-fill">{utt.string}</li>
                     <li class="list-group-item list-group-item-primary"><i class="fa-solid fa-plus"></i></li>
                     <li class="list-group-item list-group-item"><i class="fa-solid fa-minus"></i></li>
+                    <li class="list-group-item list-group-item-primary">{utt.string}<button class="btn btn-default btn-sm float-end" on:click={() => removeUtterance(utt.id)} ><i class="fa fa-times" /></button></li>
                 </div>
-                    <!-- <li class="list-group-item list-group-item-primary">{utt.string}<button class="btn btn-default btn-sm float-end" on:click={() => removeUtterance(utt.id)} ><i class="fa fa-times" /></button></li> -->
                 {:else if utt.label == "-"}
                     <div class="list-group list-group-horizontal py-md-1">
                         <li class="list-group-item list-group-item flex-fill">{utt.string}</li>
                         <li class="list-group-item list-group-item"><i class="fa-solid fa-plus"></i></li>
                         <li class="list-group-item list-group-item-danger"><i class="fa-solid fa-minus"></i></li>
-                        
+                        <li class="list-group-item list-group-item-danger">{utt.string}<button class="btn btn-default btn-sm float-end" on:click={() => removeUtterance(utt.id)} ><i class="fa fa-times" /></button></li>
                     </div>
-                    <!-- <li class="list-group-item list-group-item-danger">{utt.string}<button class="btn btn-default btn-sm float-end" on:click={() => removeUtterance(utt.id)} ><i class="fa fa-times" /></button></li> -->
                 {/if}
             {/each}
         </ul>
