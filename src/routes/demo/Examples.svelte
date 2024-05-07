@@ -20,8 +20,8 @@
     let MAX_PROGRAMS = 30;
     let USER_COMPLETED = 0;
 
-    let LITERAL_MODEL_URL = "https://qdkd8x0wqtlir789.us-east-1.aws.endpoints.huggingface.cloud";
-    let PRAGMATIC_MODEL_URL = "https://r6fve43vkbl7ddj4.us-east-1.aws.endpoints.huggingface.cloud";
+    let LITERAL_MODEL_URL = "https://c0vmrzlr7laeho8b.us-east-1.aws.endpoints.huggingface.cloud";
+    let PRAGMATIC_MODEL_URL = "https://sqv1rlpqi9lshx3r.us-east-1.aws.endpoints.huggingface.cloud";
 
     let regex = "";
     let progid = "";
